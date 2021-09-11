@@ -18,7 +18,7 @@ if __name__ == "__main__":
     app.setStyle("Fusion")
     MainWindow = QMainWindow()
     win = Window()
-    win.setWindowIcon(QIcon(applicationPath + "{0}View{0}misc{0}logo{0}logo.ico".format(os.sep)))
+    win.setWindowIcon(QIcon(applicationPath + "{0}View{0}logo{0}logo.ico".format(os.sep)))
     win.setWindowTitle("GraphGenerator")
     win.show()
     sys.exit(app.exec())
