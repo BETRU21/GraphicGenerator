@@ -1,4 +1,3 @@
-import numpy as np
 
 class DataExtractor:
     def __init__(self):

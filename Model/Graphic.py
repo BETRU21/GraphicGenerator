@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 class Graphic:
 	def __init__(self):
@@ -6,7 +7,11 @@ class Graphic:
 		self.positions = [] 
 
 	def generateGraph(self, x, y):
-		self.figure = plt.figure(figsize=(y, x), dpi=80)
+		if type(x) is not int:
+			raise TypeError("x argument is not int.")
+		if type(y) is not int:
+			raise TypeError("y argument is not int.")
+		self.figure = plt.figure(figsize=(y, x), dpi=400)
 		self.x = x
 		self.y = y
 		self.generatePositions()
@@ -31,6 +36,18 @@ class Graphic:
 		Return:
 			None
 		"""
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		if type(dataX) is not np.ndarray:
+            raise TypeError("dataX argument is not a list or numpy.ndarray.")
+        if type(dataY) is not np.ndarray:
+            raise TypeError("dataY argument is not a list or numpy.ndarray.")
+        if type(Color) is not str:
+        	raise TypeError("Color argument is not a string.")
+        if type(lineStyle) is not str:
+        	raise TypeError("lineStyle argument is not a string.")
+        if type(Marker) is not str:
+        	raise TypeError("Marker argument is not a string.")
 		posX = position[0]
 		posY = position[1]
 		position = (posY-1) * self.x + posX
