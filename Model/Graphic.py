@@ -4,7 +4,10 @@ import numpy as np
 class Graphic:
 	def __init__(self):
 		plt.ion()
-		self.positions = [] 
+		self.positions = []
+		self.subplotsDict = {}
+
+	# Public Functions
 
 	def generateGraph(self, x, y):
 		if type(x) is not int:
@@ -15,13 +18,10 @@ class Graphic:
 		self.x = x
 		self.y = y
 		self.generatePositions()
+		self.generateSubplots()
 
-	def generatePositions(self):
-		self.positions = []
-		for i in range(self.x):
-			for j in range (self.y):
-				pos = (i+1,j+1)
-				self.positions.append(pos)
+	def resetPlot(self):
+		self.figure.clear()
 
 	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker=""):
 		"""
@@ -53,9 +53,23 @@ class Graphic:
 		posX = position[0]
 		posY = position[1]
 		position = (posY-1) * self.x + posX
-		ax = self.figure.add_subplot(self.y, self.x, position)
-		ax.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker)
+		subplot = self.subplotsDict.get(position)
+		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker)
 
-	def resetPlot(self):
-		self.figure.clear()
+	# Non-Public Functions
+
+	def generatePositions(self):
+		self.positions = []
+		for i in range(self.x):
+			for j in range (self.y):
+				pos = (i+1,j+1)
+				self.positions.append(pos)
+
+	def generateSubplots(self):
+		self.subplotsDict = {}
+		for i, item in enumerate(self.positions):
+			x = item[0]
+			y = item[1]
+			position = (y-1) * self.x + x
+			self.subplotsDict[position] = self.figure.add_subplot(self.y, self.x, position)
 		

@@ -6,6 +6,13 @@ class DataExtractor:
     def resetDataDict(self):
         self.dataDict = {}
 
+    def getData(self, dataName):
+        data = self.dataDict.get(dataName)
+        return data
+
+    def deleteData(self, dataName):
+        self.dataDict.pop(dataName)
+
     def addData(self, path, dataName, splitSymbol, deleteFirstRow=0, xValuesPos=0, yValuesPos=1):
         """Add data in the dictionnary.
         Args:
@@ -30,10 +37,3 @@ class DataExtractor:
             x.append(float(elem[xValuesPos]))
             y.append(float(elem[yValuesPos]))
         self.dataDict[dataName] = {"xValues": x, "yValues": y}
-
-    def deleteData(self, dataName):
-    	self.dataDict.pop(dataName)
-
-    def getData(self, dataName):
-        data = self.dataDict.get(dataName)
-        return data
