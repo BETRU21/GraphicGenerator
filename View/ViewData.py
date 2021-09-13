@@ -5,8 +5,6 @@ import os
 MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}DataWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
-applicationPath = os.path.abspath("")
-
 class ViewData(QWidget, Ui_MainWindow):
     def __init__(self, modelData):
         super(ViewData, self).__init__()
@@ -71,12 +69,6 @@ class ViewData(QWidget, Ui_MainWindow):
         self.appControl.updateDataList(keysList)
 
     def setFilePath(self):
-        """Select a directory and call setFolderPath and replaceLastPath from appControl.
-        Args:
-            Nothing.
-        Return:
-            Nothing.
-        """
         try:
             filePath = QFileDialog.getOpenFileName(self, "Select File")[0]
             self.le_filePath.setText(filePath)
@@ -100,6 +92,9 @@ class ViewData(QWidget, Ui_MainWindow):
             data = self.modelData.getData(key)
             xValues = data.get("xValues")
             yValues = data.get("yValues")
+            if len(xValues) > 50:
+                xValues = xValues[:50]
+                yValues = yValues[:50]
             preview = [" xValues | yValues"]
             for i, item in enumerate(xValues):
                 line = str(item) + " | " + str(yValues[i])

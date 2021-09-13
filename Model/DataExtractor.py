@@ -1,9 +1,4 @@
-import pandas as pd
 import numpy as np
-import copy
-import csv
-import os
-import re
 
 class DataExtractor:
     def __init__(self):
@@ -13,6 +8,18 @@ class DataExtractor:
         self.dataDict = {}
 
     def addData(self, path, dataName, splitSymbol, deleteFirstRow=0, xValuesPos=0, yValuesPos=1):
+        """Add data in the dictionnary.
+        Args:
+            path(str): The path of the file.
+            dataName(str): The key to add in the dictionnary.
+            splitSymbol(str): The split symbol between each data.
+            [Facultative]
+            deleteFirstRow(int): The number of row you want to avoid at the start of the file.
+            xValuesPos(int): The column of x values.
+            yValuesPos(int): The column of y values.
+        Return:
+            None
+        """
         fich = open(path, "r")
         fich_str = list(fich)[deleteFirstRow:]
         fich.close()

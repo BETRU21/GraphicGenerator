@@ -15,9 +15,10 @@ class AppControl():
         """Call showOnConsole from console view.
         Args:
             text(str): The text to show on console.
+            [Facultative]
             color(str): (facultative), "red","green" or nothing.
         return:
-            Nothing. 
+            None
         """
         self.consoleView.showOnConsole(text, color)
 

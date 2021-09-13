@@ -1,16 +1,7 @@
-import sys
-from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout, QColorDialog
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
-import matplotlib.pyplot as plt
-import random
-
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QColorDialog, QWidget
 from PyQt5 import uic
-from PyQt5 import QtGui
+import sys
 import os
-
-from multiprocessing import Process
 
 MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}GraphWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
@@ -21,12 +12,12 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.setupUi(self)
         self.modelGraphic = modelGraphic
         self.modelData = modelData
-        self.lineStyles = ['solid', 'dashed', 'dashdot', 'dotted']
         self.markerSymbols = ["", ".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s", "p", "P", "*", "h", "H", "+", "x", "X", "D", "d", "|", "_"]
         self.markerTexts = ["None", "point", "pixel", "circle", "triangle down", "triangle up", "triangle left", "triangle right", "tri down", "tri up", "tri left", "tri right", "octagon", "square", "pentagon", "plus (filled)", "star", "hexagon 1", "hexagon 2", "plus", "x", "x (filled)", "diamond", "thin diamond", "vline", "hline"]
+        self.lineStyles = ['solid', 'dashed', 'dashdot', 'dotted']
         self.color = "#48b0b0"
-        self.setupWidgets()
         self.connectWidgets()
+        self.setupWidgets()
 
     def setupWidgets(self):
         self.cmb_lineType.clear()
@@ -53,7 +44,6 @@ class ViewGraph(QWidget, Ui_MainWindow):
             newColor = tuple(int(color[i:i+2], 16) for i in (0, 2, 4))
             styleSheetParameter = "QCheckBox::indicator{background-color: rgb" + f"{newColor}"+";}"
             self.ind_color.setStyleSheet(styleSheetParameter)
-            
 
     def generateGraph(self):
         x = self.sb_x.value()
@@ -82,7 +72,6 @@ class ViewGraph(QWidget, Ui_MainWindow):
         color = self.color
         marker = self.markerSymbols[self.cmb_marker.currentIndex()]
         lineStyle = self.cmb_lineType.currentText()
-
         try:
             self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker)
         except Exception as e:

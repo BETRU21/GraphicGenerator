@@ -17,18 +17,16 @@ class ViewConsole(QWidget, Ui_MainWindow):
         """Show text on the console view.
         Args:
             text(str): The text to show on console.
-            color(str): (facultative), "red","green" or nothing
-        return:
-            Nothing. 
+            [Facultative]
+            color(str): "red" or "green"
+        Return:
+            None
         """
-        if color == None:
-            HEX = "#ffffff"
+        if color == "red":
+            HEX = "#ff0000"
+        elif color == "green":
+            HEX = "#0dff00"
         else:
-            if color == "red":
-                HEX = "#ff0000"
-            elif color == "green":
-                HEX = "#0dff00"
-            else:
-                HEX = "#ffffff"
+            HEX = "#ffffff"
         self.te_Console.setTextColor(QtGui.QColor(HEX))
         self.te_Console.append(text)
