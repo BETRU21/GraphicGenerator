@@ -21,12 +21,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupWindowTabs()
 
     def setupWindowTabs(self):
-        """Setup all the tabs in the main window.
-        Args:
-            Nothing.
-        Return:
-            Nothing.
-        """
         self.tabWidget = QTabWidget()
         self.setCentralWidget(self.tabWidget)
         self.tabWidget.addTab(self.dataView, "Data")
@@ -34,12 +28,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tabWidget.addTab(self.consoleView, "Console")
 
     def createsComponentsAndPointers(self):
-        """Set and match all components together.
-        Args:
-            Nothing.
-        Return:
-            Nothing.
-        """
         # Components
         self.graphView = ViewGraph(self.modelGraphic, self.modelData)
         self.consoleView = ViewConsole()
