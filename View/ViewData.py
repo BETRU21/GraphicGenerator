@@ -16,8 +16,6 @@ class ViewData(QWidget, Ui_MainWindow):
         self.setupWidgets()
         self.connectWidgets()
 
-
-
     def setupWidgets(self):
         self.cmb_split.addItems([",", ";", ":", ".", ""])
 
@@ -51,20 +49,26 @@ class ViewData(QWidget, Ui_MainWindow):
         path = self.le_filePath.text()
         dataName = self.le_dataName.text()
         splitSymbol = self.cmb_split.currentText()
-        self.modelData.addData(path, dataName, splitSymbol)
-        self.updateDataLoaded()
-        self.pb_extract.setEnabled(False)
-        self.changeFilePathColorIndicator("orange")
-        self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(255,0,0);}")
-        self.pb_reset.setEnabled(True)
-
+        deleteFirstRow = self.sb_row.value()
+        xValuesColumn = self.sb_xValues.value() - 1
+        yValuesColumn = self.sb_yValues.value() - 1
+        try:
+            self.modelData.addData(path, dataName, splitSymbol, deleteFirstRow, xValuesColumn, yValuesColumn)
+            self.updateDataLoaded()
+            self.pb_extract.setEnabled(False)
+            self.changeFilePathColorIndicator("orange")
+            self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(255,0,0);}")
+            self.pb_reset.setEnabled(True)
+            self.appControl.showOnConsole("Successfully extracted data!", "green")
+        except Exception as e:
+            e = str(e)
+            self.appControl.showOnConsole(e, "red")
 
     def updateDataLoaded(self):
         keysList = self.modelData.dataDict.keys()
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
         self.appControl.updateDataList(keysList)
-
 
     def setFilePath(self):
         """Select a directory and call setFolderPath and replaceLastPath from appControl.
@@ -104,4 +108,3 @@ class ViewData(QWidget, Ui_MainWindow):
             self.lw_preview.addItems(preview)
         except:
             self.lw_preview.clear()
-

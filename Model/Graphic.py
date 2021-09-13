@@ -27,11 +27,4 @@ class Graphic:
 		position = (posY-1) * self.x + posX
 		ax = self.figure.add_subplot(self.y, self.x, position) # hauteur, largeur, position
 		ax.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker)
-
-
-
-
-
-		# supported values are '-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted'
-
 		
