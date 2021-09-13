@@ -49,7 +49,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         x = self.sb_x.value()
         y = self.sb_y.value()
         self.modelGraphic.generateGraph(x, y)
-        self.appControl.showOnConsole(f"A new graphic {x}x{y} has been successfully created!", "green")
+        self.consoleView.showOnConsole(f"A new graphic {x}x{y} has been successfully created!", "green")
         self.setupWidgets()
         self.cmb_pos.setEnabled(True)
         self.cmb_data.setEnabled(True)
@@ -60,7 +60,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
 
     def getSelectedData(self):
         key = self.cmb_data.currentText()
-        data = self.modelData.dataDict.get(key)
+        data = self.modelData.getData(key)
         dataX = data.get("xValues")
         dataY = data.get("yValues")
         return (dataX, dataY)
@@ -76,8 +76,11 @@ class ViewGraph(QWidget, Ui_MainWindow):
             self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker)
         except Exception as e:
             print(e)
-        self.appControl.showOnConsole(f"{self.cmb_data.currentText()} plot successfully at {self.cmb_pos.currentText()}", "green")
+        self.consoleView.showOnConsole(f"{self.cmb_data.currentText()} plot successfully at {self.cmb_pos.currentText()}", "green")
 
     def updateDataList(self, keysList):
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
+
+
+# Penser à une façon de ne pas toujours recréer un subplot

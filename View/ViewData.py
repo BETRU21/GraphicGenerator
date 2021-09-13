@@ -10,7 +10,6 @@ class ViewData(QWidget, Ui_MainWindow):
         super(ViewData, self).__init__()
         self.setupUi(self)
         self.modelData = modelData
-        self.appControl = None
         self.setupWidgets()
         self.connectWidgets()
 
@@ -57,30 +56,30 @@ class ViewData(QWidget, Ui_MainWindow):
             self.changeFilePathColorIndicator("orange")
             self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(255,0,0);}")
             self.pb_reset.setEnabled(True)
-            self.appControl.showOnConsole("Successfully extracted data!", "green")
+            self.consoleView.showOnConsole("Successfully extracted data!", "green")
         except Exception as e:
             e = str(e)
-            self.appControl.showOnConsole(e, "red")
+            self.consoleView.showOnConsole(e, "red")
 
     def updateDataLoaded(self):
         keysList = self.modelData.dataDict.keys()
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
-        self.appControl.updateDataList(keysList)
+        self.graphView.updateDataList(keysList)
 
     def setFilePath(self):
         try:
             filePath = QFileDialog.getOpenFileName(self, "Select File")[0]
             self.le_filePath.setText(filePath)
-            self.appControl.showOnConsole("filePath found !", "green")
+            self.consoleView.showOnConsole("filePath found !", "green")
             self.changeFilePathColorIndicator("green")
         except Exception as e:
             e = str(e)
-            self.appControl.showOnConsole(e, "red")
+            self.consoleView.showOnConsole(e, "red")
 
     def resetData(self):
         self.cmb_data.clear()
-        self.appControl.clearGraphViewData()
+        self.graphView.cmb_data.clear()
         self.modelData.resetDataDict()
         self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(0,255,0);}")
         self.ind_filePath.setStyleSheet("QCheckBox::indicator{background-color: rgb(0,255,0);}")

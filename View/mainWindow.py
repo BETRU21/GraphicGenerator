@@ -1,4 +1,3 @@
-from Controller.AppControl import AppControl
 from View.ViewData import ViewData
 from View.ViewGraph import ViewGraph
 from View.ViewConsole import ViewConsole
@@ -32,11 +31,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.graphView = ViewGraph(self.modelGraphic, self.modelData)
         self.consoleView = ViewConsole()
         self.dataView = ViewData(self.modelData)
-        self.appControl = AppControl(self.modelGraphic)
-
-        # Pointers
-        self.graphView.appControl = self.appControl
-        self.dataView.appControl = self.appControl
-        self.appControl.consoleView = self.consoleView
-        self.appControl.dataView = self.dataView
-        self.appControl.graphView = self.graphView
+        # New Pointers
+        self.graphView.consoleView = self.consoleView
+        self.dataView.consoleView = self.consoleView
+        self.dataView.graphView = self.graphView

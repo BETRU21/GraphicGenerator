@@ -10,7 +10,6 @@ class ViewConsole(QWidget, Ui_MainWindow):
     def __init__(self):
         super(ViewConsole, self).__init__()
         self.setupUi(self)
-        self.appControl = None
         self.te_Console.clear()
 
     def showOnConsole(self, text, color=None):
