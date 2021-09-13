@@ -34,6 +34,10 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.pb_addPlot.clicked.connect(self.plot)
         self.pb_dimension.clicked.connect(self.generateGraph)
         self.pb_selectColor.clicked.connect(self.selectColor)
+        self.pb_clear.clicked.connect(self.clearGraph)
+
+    def clearGraph(self):
+        self.modelGraphic.resetPlot()
 
     def selectColor(self):
         color = QColorDialog.getColor()
