@@ -6,6 +6,8 @@ import os
 MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}GraphWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
+# TODO : Faire les fonctionnalités de légendes et titres.
+
 class ViewGraph(QWidget, Ui_MainWindow):
     def __init__(self, modelGraphic, modelData):
         super(ViewGraph, self).__init__()
@@ -81,6 +83,3 @@ class ViewGraph(QWidget, Ui_MainWindow):
     def updateDataList(self, keysList):
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
-
-
-# Penser à une façon de ne pas toujours recréer un subplot

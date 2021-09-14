@@ -7,6 +7,8 @@ import os
 MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}CurvefitWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
+# TODO : Connecter tout les widgets et mettre les fonctionnalités
+
 class ViewCurvefit(QWidget, Ui_MainWindow):
     def __init__(self, modelGraphic, modelData, modelCurvefit):
         super(ViewCurvefit, self).__init__()
