@@ -20,8 +20,12 @@ class Graphic:
 		self.generatePositions()
 		self.generateSubplots()
 
-	def resetPlot(self):
-		self.figure.clear()
+	def addSubtitle(self, position, title):
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.set_title(title)
 
 	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker=""):
 		"""
@@ -54,7 +58,7 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker)
+		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label="Yo bitch")
 
 	# Non-Public Functions
 
@@ -72,4 +76,5 @@ class Graphic:
 			y = item[1]
 			position = (y-1) * self.x + x
 			self.subplotsDict[position] = self.figure.add_subplot(self.y, self.x, position)
+
 		

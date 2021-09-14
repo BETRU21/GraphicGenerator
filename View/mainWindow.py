@@ -1,7 +1,9 @@
 from View.ViewData import ViewData
 from View.ViewGraph import ViewGraph
 from View.ViewConsole import ViewConsole
+from View.ViewCurvefit import ViewCurvefit
 from Model.Graphic import Graphic
+from Model.Curvefit import Curvefit
 from Model.DataExtractor import DataExtractor
 from PyQt5.QtWidgets import QMainWindow, QTabWidget
 from PyQt5 import uic
@@ -16,6 +18,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.modelGraphic = Graphic()
         self.modelData = DataExtractor()
+        self.modelCurvefit = Curvefit()
         self.createsComponentsAndPointers()
         self.setupWindowTabs()
 
@@ -24,6 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setCentralWidget(self.tabWidget)
         self.tabWidget.addTab(self.dataView, "Data")
         self.tabWidget.addTab(self.graphView, "Graph")
+        self.tabWidget.addTab(self.curvefitView, "Curvefit")
         self.tabWidget.addTab(self.consoleView, "Console")
 
     def createsComponentsAndPointers(self):
@@ -31,7 +35,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.graphView = ViewGraph(self.modelGraphic, self.modelData)
         self.consoleView = ViewConsole()
         self.dataView = ViewData(self.modelData)
+        self.curvefitView = ViewCurvefit(self.modelGraphic, self.modelData, self.modelCurvefit)
         # New Pointers
+        self.curvefitView.consoleView = self.consoleView
         self.graphView.consoleView = self.consoleView
         self.dataView.consoleView = self.consoleView
         self.dataView.graphView = self.graphView

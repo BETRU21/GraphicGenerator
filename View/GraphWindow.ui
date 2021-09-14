@@ -15,68 +15,47 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <spacer name="verticalSpacer_5">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_8">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_7">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_6">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="1" column="5">
-      <widget class="QPushButton" name="pb_clear">
+     <item row="1" column="4">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="3">
+      <widget class="QSpinBox" name="sb_y">
+       <property name="maximumSize">
+        <size>
+         <width>40</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="6">
+      <widget class="QPushButton" name="pb_dimension">
+       <property name="font">
+        <font>
+         <pointsize>22</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string>Clear Graph</string>
+        <string>Generate New Graph</string>
        </property>
       </widget>
      </item>
@@ -89,18 +68,6 @@
        </property>
        <property name="text">
         <string>Dimension:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" colspan="7">
-      <widget class="QPushButton" name="pb_dimension">
-       <property name="font">
-        <font>
-         <pointsize>22</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Generate New Graph</string>
        </property>
       </widget>
      </item>
@@ -128,26 +95,8 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
-      <widget class="QSpinBox" name="sb_y">
-       <property name="maximumSize">
-        <size>
-         <width>40</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>16</pointsize>
-        </font>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <spacer name="horizontalSpacer_2">
+     <item row="1" column="0">
+      <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -162,60 +111,21 @@
     </layout>
    </item>
    <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="1">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="1">
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="2" column="1">
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="3" column="1">
-      <spacer name="verticalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="4" column="0" colspan="2">
+     <item row="0" column="0" colspan="2">
       <widget class="QLabel" name="label_5">
        <property name="font">
         <font>
@@ -230,7 +140,7 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
@@ -245,7 +155,7 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="1" column="1">
       <widget class="QComboBox" name="cmb_pos">
        <property name="enabled">
         <bool>false</bool>
@@ -257,7 +167,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
@@ -272,7 +182,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
+     <item row="2" column="1">
       <widget class="QComboBox" name="cmb_data">
        <property name="enabled">
         <bool>false</bool>
@@ -284,7 +194,7 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="0">
+     <item row="3" column="0">
       <widget class="QCheckBox" name="ind_color">
        <property name="styleSheet">
         <string notr="true">QCheckBox::indicator{background-color: rgb(72, 176, 176);}</string>
@@ -294,7 +204,7 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
+     <item row="3" column="1">
       <widget class="QPushButton" name="pb_selectColor">
        <property name="enabled">
         <bool>false</bool>
@@ -312,7 +222,7 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_4">
        <property name="font">
         <font>
@@ -327,7 +237,7 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
+     <item row="4" column="1">
       <widget class="QComboBox" name="cmb_lineType">
        <property name="enabled">
         <bool>false</bool>
@@ -339,7 +249,7 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_6">
        <property name="font">
         <font>
@@ -351,7 +261,19 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
+     <item row="5" column="1">
+      <widget class="QComboBox" name="cmb_marker">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
       <widget class="QPushButton" name="pb_addPlot">
        <property name="enabled">
         <bool>false</bool>
@@ -363,18 +285,6 @@
        </property>
        <property name="text">
         <string>AddPlot</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QComboBox" name="cmb_marker">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>16</pointsize>
-        </font>
        </property>
       </widget>
      </item>
