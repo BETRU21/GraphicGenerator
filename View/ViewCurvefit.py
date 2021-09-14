@@ -19,7 +19,6 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         dataX = np.array([1,2,3,4,5,6,7,8,9])
         dataY = np.array([0,2,4,6,8,10,12,14,16])
 
-
         f = modelCurvefit.getFunction("straightLine")
 
         line, popt = modelCurvefit.curvefit(dataX, dataY, f)
