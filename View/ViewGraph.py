@@ -36,6 +36,14 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.pb_addPlot.clicked.connect(self.plot)
         self.pb_dimension.clicked.connect(self.generateGraph)
         self.pb_selectColor.clicked.connect(self.selectColor)
+        self.pb_clear.clicked.connect(self.clearData)
+
+    def clearData(self):
+        positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+        position = (int(positionStr[0]), int(positionStr[1]))
+        self.modelGraphic.deleteSpecificPlot(position)
+
+
 
     def selectColor(self):
         color = QColorDialog.getColor()
@@ -59,6 +67,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.cmb_lineType.setEnabled(True)
         self.cmb_marker.setEnabled(True)
         self.pb_addPlot.setEnabled(True)
+        self.pb_clear.setEnabled(True)
 
     def getSelectedData(self):
         key = self.cmb_data.currentText()

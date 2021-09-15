@@ -9,6 +9,13 @@ class Graphic:
 
 	# Public Functions
 
+	def deleteSpecificPlot(self, position):
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.clear()
+
 	def generateGraph(self, x, y):
 		if type(x) is not int:
 			raise TypeError("x argument is not int.")
