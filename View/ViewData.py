@@ -66,6 +66,7 @@ class ViewData(QWidget, Ui_MainWindow):
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
         self.graphView.updateDataList(keysList)
+        self.curvefitView.updateDataList(keysList)
 
     def setFilePath(self):
         try:

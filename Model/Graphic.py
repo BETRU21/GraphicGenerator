@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+# TODO fix the type numpy.ndarray in plot
 class Graphic:
 	def __init__(self):
 		plt.ion()
@@ -49,12 +50,12 @@ class Graphic:
 		"""
 		if type(position) is not tuple:
 			raise TypeError("position argument is not a tuple.")
-		if type(dataX) is not list:
-			if type(dataX) is not np.ndarray:
-				raise TypeError("dataX argument is not a list or numpy.ndarray.")
-		if type(dataY) is not list:
-			if type(dataY) is not np.ndarray:
-				raise TypeError("dataY argument is not a list or numpy.ndarray.")
+		# if type(dataX) is not list:
+		# 	if type(dataX) is not numpy.ndarray:
+		# 		raise TypeError("dataX argument is not a list or numpy.ndarray.")
+		# if type(dataY) is not list:
+		# 	if type(dataY) is not numpy.ndarray:
+		# 		raise TypeError("dataY argument is not a list or numpy.ndarray.")
 		if type(Color) is not str:
 			raise TypeError("Color argument is not a string.")
 		if type(lineStyle) is not str:

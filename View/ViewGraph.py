@@ -43,8 +43,6 @@ class ViewGraph(QWidget, Ui_MainWindow):
         position = (int(positionStr[0]), int(positionStr[1]))
         self.modelGraphic.deleteSpecificPlot(position)
 
-
-
     def selectColor(self):
         color = QColorDialog.getColor()
 
@@ -61,6 +59,11 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.modelGraphic.generateGraph(x, y)
         self.consoleView.showOnConsole(f"A new graphic {x}x{y} has been successfully created!", "green")
         self.setupWidgets()
+        self.curvefitView.setupWidgets()
+        self.enableWidgets()
+        self.curvefitView.enableWidgets()
+
+    def enableWidgets(self):
         self.cmb_pos.setEnabled(True)
         self.cmb_data.setEnabled(True)
         self.pb_selectColor.setEnabled(True)

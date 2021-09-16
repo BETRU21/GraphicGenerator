@@ -6,14 +6,18 @@ class Curvefit:
 	def __init__(self):
 		self.functions = {}
 		self.functionsParam = {}
+		self.popt = []
 		self.buildFunctions()
 		self.buildFunctionsParam()
 
 	# Public functions
 
+	def currentPopt(self):
+		return self.popt
+
 	def listFunctions(self):
 		"""List available functions."""
-		return self.functions.key()
+		return self.functions.keys()
 
 	def getFunction(self, key):
 		if type(key) is not str:
@@ -49,7 +53,8 @@ class Curvefit:
 			popt, pcov = curve_fit(function, dataX, dataY, bounds=bounds)
 
 		line = function(dataX, *popt)
-		return (line, popt)
+		self.popt = popt
+		return line
 
 	# Non-public functions
 
