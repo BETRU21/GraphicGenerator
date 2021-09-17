@@ -60,8 +60,10 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.consoleView.showOnConsole(f"A new graphic {x}x{y} has been successfully created!", "green")
         self.setupWidgets()
         self.curvefitView.setupWidgets()
+        self.titleView.setupWidgets()
         self.enableWidgets()
         self.curvefitView.enableWidgets()
+        self.titleView.enableWidgets()
 
     def enableWidgets(self):
         self.cmb_pos.setEnabled(True)

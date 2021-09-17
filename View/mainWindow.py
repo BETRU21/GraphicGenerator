@@ -46,6 +46,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.graphView.consoleView = self.consoleView
         self.graphView.curvefitView = self.curvefitView
+        self.graphView.titleView = self.titleView
 
         self.dataView.consoleView = self.consoleView
         self.dataView.graphView = self.graphView
