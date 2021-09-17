@@ -26,6 +26,19 @@ class DataExtractor:
         Return:
             None
         """
+        if type(path) is not str:
+            raise TypeError("path argument is not a string.")
+        if type(dataName) is not str:
+            raise TypeError("dataName argument is not a string.")
+        if type(splitSymbol) is not str:
+            raise TypeError("splitSymbol argument is not a string.")
+        if type(deleteFirstRow) is not int:
+            raise TypeError("deleteFirstRow argument is not a int.")
+        if type(xValuesPos) is not int:
+            raise TypeError("xValuesPos is not a int.")
+        if type(yValuesPos) is not int:
+            raise TypeError("yValuesPos is not a int.")
+
         fich = open(path, "r")
         fich_str = list(fich)[deleteFirstRow:]
         fich.close()

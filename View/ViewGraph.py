@@ -89,7 +89,8 @@ class ViewGraph(QWidget, Ui_MainWindow):
         try:
             self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker)
         except Exception as e:
-            print(e)
+            e = str(e)
+            self.consoleView.showOnConsole(e, "red")
         self.consoleView.showOnConsole(f"{self.cmb_data.currentText()} plot successfully at {self.cmb_pos.currentText()}", "green")
 
     def updateDataList(self, keysList):

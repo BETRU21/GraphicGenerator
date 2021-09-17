@@ -36,10 +36,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.consoleView = ViewConsole()
         self.dataView = ViewData(self.modelData)
         self.curvefitView = ViewCurvefit(self.modelGraphic, self.modelData, self.modelCurvefit)
-        # New Pointers
+        # Pointers
         self.curvefitView.consoleView = self.consoleView
+
         self.graphView.consoleView = self.consoleView
         self.graphView.curvefitView = self.curvefitView
+
         self.dataView.consoleView = self.consoleView
         self.dataView.graphView = self.graphView
         self.dataView.curvefitView = self.curvefitView

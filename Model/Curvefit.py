@@ -16,7 +16,7 @@ class Curvefit:
 		return self.popt
 
 	def listFunctions(self):
-		"""List available functions."""
+		"""List premade functions."""
 		return self.functions.keys()
 
 	def getFunction(self, key):
@@ -69,13 +69,13 @@ class Curvefit:
 		self.functions["polynomial3Degree"] = self.polynomial3Degree
 
 	def buildFunctionsParam(self):
-		self.functionsParam["sinus"] = "a*np.sin((X*b)+c)+d where popt=[a,b,c,d]"
-		self.functionsParam["cosinus"] = "a*np.cos((X*b)+c)+d where popt=[a,b,c,d]"
-		self.functionsParam["gaussian"] = "a*np.exp((-(b*X+c)**2))+d where popt=[a,b,c,d]"
-		self.functionsParam["exponential"] = "a*np.exp(b*X-c)+d where popt=[a,b,c,d]"
-		self.functionsParam["straightLine"] = "a*X + b where popt=[a,b]"
-		self.functionsParam["polynomial2Degree"] = "a*X**2 + b*x + c where popt=[a,b,c]"
-		self.functionsParam["polynomial3Degree"] = "a*X**3 + b*X**2 + c*X + d where popt=[a,b,c,d]"
+		self.functionsParam["sinus"] = "a*np.sin((X*b)+c)+d | where popt=[a,b,c,d]"
+		self.functionsParam["cosinus"] = "a*np.cos((X*b)+c)+d | where popt=[a,b,c,d]"
+		self.functionsParam["gaussian"] = "a*np.exp((-(b*X+c)**2))+d | where popt=[a,b,c,d]"
+		self.functionsParam["exponential"] = "a*np.exp(b*X-c)+d | where popt=[a,b,c,d]"
+		self.functionsParam["straightLine"] = "a*X + b | where popt=[a,b]"
+		self.functionsParam["polynomial2Degree"] = "a*X**2 + b*x + c | where popt=[a,b,c]"
+		self.functionsParam["polynomial3Degree"] = "a*X**3 + b*X**2 + c*X + d | where popt=[a,b,c,d]"
 
 	def sinus(self, X, a, b, c, d):
 		return a*np.sin((X*b)+c)+d

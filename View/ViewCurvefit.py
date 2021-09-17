@@ -6,6 +6,8 @@ import os
 MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}CurvefitWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
+# TODO : add linspace option to plot function with better resolution
+
 class ViewCurvefit(QWidget, Ui_MainWindow):
     def __init__(self, modelGraphic, modelData, modelCurvefit):
         super(ViewCurvefit, self).__init__()
@@ -104,14 +106,15 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
     def plot(self):
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
         position = (int(positionStr[0]), int(positionStr[1]))
-        dataX, dataY = self.getSelectedData() # modifier
-        dataX = np.array(dataX)
-        dataY = np.array(dataY)
-        key = self.cmb_function.currentText()
-        function = self.modelCurvefit.getFunction(key)
         color = self.color
         marker = self.markerSymbols[self.cmb_marker.currentIndex()]
         lineStyle = self.cmb_lineType.currentText()
+
+        dataX, dataY = self.getSelectedData()
+        key = self.cmb_function.currentText()
+        dataX = np.array(dataX)
+        dataY = np.array(dataY)
+        function = self.modelCurvefit.getFunction(key)
         bounds = (self.sb_min.value(), self.sb_max.value())
 
         if self.cb_bounds.checkState() == 0:
@@ -120,10 +123,10 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             curvefit = self.modelCurvefit.curvefit(dataX, dataY, function, bounds)
         try:
             self.modelGraphic.addPlot(position, dataX, curvefit, color, lineStyle, marker)
-
-            popt = str(self.modelCurvefit.currentPopt())
-            self.cmb_popt.clear()
-            self.cmb_popt.addItem(popt)
         except Exception as e:
-            print(e)
-        self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} plot successfully at {self.cmb_pos.currentText()}", "green")
+            e = str(e)
+            self.consoleView.showOnConsole(e, "red")
+        popt = str(self.modelCurvefit.currentPopt())
+        self.cmb_popt.clear()
+        self.cmb_popt.addItem(popt)
+        self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
