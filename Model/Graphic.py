@@ -84,4 +84,6 @@ class Graphic:
 			position = (y-1) * self.x + x
 			self.subplotsDict[position] = self.figure.add_subplot(self.y, self.x, position)
 
+	# https://matplotlib.org/stable/gallery/subplots_axes_and_figures/figure_title.html
+
 		
