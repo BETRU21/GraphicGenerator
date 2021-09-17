@@ -75,7 +75,7 @@
        <item>
         <widget class="QCheckBox" name="ind_filePath">
          <property name="styleSheet">
-          <string notr="true">QCheckBox::indicator{background-color: rgb(75, 75, 75);}</string>
+          <string notr="true">QCheckBox::indicator{background-color: rgb(49, 54, 65);}</string>
          </property>
          <property name="text">
           <string/>
@@ -123,7 +123,7 @@
        <item>
         <widget class="QCheckBox" name="ind_dataName">
          <property name="styleSheet">
-          <string notr="true">QCheckBox::indicator{background-color: rgb(75, 75, 75);}</string>
+          <string notr="true">QCheckBox::indicator{background-color: rgb(49, 54, 65);}</string>
          </property>
          <property name="text">
           <string/>

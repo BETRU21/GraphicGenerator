@@ -38,6 +38,8 @@ class ViewData(QWidget, Ui_MainWindow):
             indColor = "QCheckBox::indicator{background-color: rgb(0,255,0);}"
         elif color == "orange":
             indColor = "QCheckBox::indicator{background-color: rgb(255,136,0);}"
+        elif color == "red":
+            indColor = "QCheckBox::indicator{background-color: rgb(255,0,0);}" 
         else:
             raise ValueError("This color is not valid.")
         self.ind_filePath.setStyleSheet(indColor)
@@ -71,12 +73,15 @@ class ViewData(QWidget, Ui_MainWindow):
     def setFilePath(self):
         try:
             filePath = QFileDialog.getOpenFileName(self, "Select File")[0]
+            if filePath == "":
+                raise ValueError("filePath is empty.")
             self.le_filePath.setText(filePath)
             self.consoleView.showOnConsole("filePath found !", "green")
             self.changeFilePathColorIndicator("green")
         except Exception as e:
             e = str(e)
             self.consoleView.showOnConsole(e, "red")
+            self.changeFilePathColorIndicator("red")
 
     def resetData(self):
         self.cmb_data.clear()
