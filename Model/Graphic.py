@@ -103,7 +103,7 @@ class Graphic:
 		subplot.legend(loc=1, fontsize=11)
 
 	def addLegends(self):
-		for i, pos in self.positions:
+		for i, pos in enumerate(self.positions):
 			subplot = self.subplotsDict.get(pos)
 			subplot.legend(loc=1, fontsize=11)
 
