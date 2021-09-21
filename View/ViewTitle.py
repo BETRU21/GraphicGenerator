@@ -19,7 +19,11 @@ class ViewTitle(QWidget, Ui_MainWindow):
 
     def connectWidgets(self):
         self.le_title.textChanged.connect(self.plotTitle)
-        self.pb_plot.clicked.connect(self.plotSubtitle)
+        self.pb_plot.clicked.connect(self.plotSubtitles)
+        self.pb_legend.clicked.connect(self.addSpecificLegend)
+        self.pb_deleteLegend.clicked.connect(self.deleteSpecificLegend)
+        self.pb_legends.clicked.connect(self.addLegends)
+        self.pb_deleteLegends.clicked.connect(self.deleteLegends)
 
     def setupWidgets(self):
         self.cmb_pos.clear()
@@ -27,16 +31,32 @@ class ViewTitle(QWidget, Ui_MainWindow):
             position = str(position)
             self.cmb_pos.addItem(position)
 
-    def plotTitle(self):
+    def addSpecificLegend(self):
         pass
 
-    def plotSubtitle(self):
+    def deleteSpecificLegend(self):
+        pass
+
+    def addLegends(self):
+        pass
+
+    def deleteLegends(self):
+        pass
+
+
+    def plotTitle(self):
+        title = self.le_title.text()
+        self.modelGraphic.addMainTitle(title)
+
+    def plotSubtitles(self):
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
         position = (int(positionStr[0]), int(positionStr[1]))
         subtitle = self.le_subtitle.text()
         subtitleX = self.le_xAxis.text()
         subtitleY = self.le_yAxis.text()
-        # Do something
+        self.modelGraphic.addSubtitle(position, subtitle)
+        self.modelGraphic.addXSubtitle(position, subtitleX)
+        self.modelGraphic.addYSubtitle(position, subtitleY)
 
     def enableWidgets(self):
         self.le_title.setEnabled(True)

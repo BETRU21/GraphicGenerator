@@ -65,7 +65,7 @@ class Graphic:
 		subplot = self.subplotsDict.get(position)
 		subplot.set_ylim(limit)
 
-	def addSubtitle(self, position, title):
+	def addSubtitle(self, position, title, fontSize=10):
 		if type(position) is not tuple:
 			raise TypeError("position argument is not a tuple.")
 		if type(title) is not str:
@@ -74,7 +74,7 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.set_title(title)
+		subplot.set_title(title, fontsize=fontSize)
 
 	def deleteSubtitle(self, position):
 		if type(position) is not tuple:
@@ -83,31 +83,53 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.set_title("")
+		subplot.set_title("", fontsize=1)
 
-	def addMainTitle(self, title):
+	def addXSubtitle(self, position, title, fontSize=8):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
 		if type(title) is not str:
 			raise TypeError("title argument is not a string.")
-		self.figure.set_title(title)
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.set_xlabel(title, fontsize=fontSize)
+
+	def addYSubtitle(self, position, title, fontSize=8):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		if type(title) is not str:
+			raise TypeError("title argument is not a string.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.set_ylabel(title, fontsize=fontSize)
+
+	def addMainTitle(self, title, fontSize=16):
+		if type(title) is not str:
+			raise TypeError("title argument is not a string.")
+		self.figure.suptitle(title, fontsize=fontSize)
 
 	def deleteMainTitle(self):
-		self.figure.set_title("")
+		self.figure.suptitle("", fontsize=1)
 
-	def addLegend(self, position):
+	def addLegend(self, position, fontSize=11):
 		if type(position) is not tuple:
 			raise TypeError("position argument is not a tuple.")
 		posX = position[0]
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.legend(loc=1, fontsize=11)
+		subplot.legend(loc=1, fontsize=fontSize)
 
-	def addLegends(self):
+	def addLegends(self, fontSize=11):
 		for i, pos in enumerate(self.positions):
 			subplot = self.subplotsDict.get(pos)
-			subplot.legend(loc=1, fontsize=11)
+			subplot.legend(loc=1, fontsize=fontSize)
 
-	def addPlot(self, position, dataX, dataY, Label, Color="blue", lineStyle= "solid", Marker=""):
+	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label=""):
 		"""
 		Args:
 			position(tuple): The position in the figure.
@@ -141,7 +163,7 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.plot(dataX, dataY, label=Label ,color=Color, linestyle=lineStyle, marker=Marker)
+		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label)
 
 
 
