@@ -117,12 +117,14 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         function = self.modelCurvefit.getFunction(key)
         bounds = (self.sb_min.value(), self.sb_max.value())
 
+        label = key + " curvefit"
+
         if self.cb_bounds.checkState() == 0:
             curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function)
         else:
             curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function, bounds)
         try:
-            self.modelGraphic.addPlot(position, newDataX, curvefit, color, lineStyle, marker)
+            self.modelGraphic.addPlot(position, newDataX, curvefit, label, color, lineStyle, marker)
         except Exception as e:
             e = str(e)
             self.consoleView.showOnConsole(e, "red")

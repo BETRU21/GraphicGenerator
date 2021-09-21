@@ -107,12 +107,13 @@ class Graphic:
 			subplot = self.subplotsDict.get(pos)
 			subplot.legend(loc=1, fontsize=11)
 
-	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker=""):
+	def addPlot(self, position, dataX, dataY, Label, Color="blue", lineStyle= "solid", Marker=""):
 		"""
 		Args:
 			position(tuple): The position in the figure.
 			dataX(list or np.ndarray): Data x to plot in the figure.
 			dataY(list of np.ndarray): Data y to plot in the figure.
+			Label(str): Label show when add a legend.
 			[Facultative]
 			Color(str): The color of the plot.
 			lineStyle(str): "solid", "dotted","dashed", "dashdot"
@@ -128,6 +129,8 @@ class Graphic:
 		if type(dataY) is not list:
 			if type(dataY) is not np.ndarray:
 				raise TypeError("dataY argument is not a list or numpy.ndarray.")
+		if type(Label) is not str:
+			raise TypeError("Label argument is not a string.")
 		if type(Color) is not str:
 			raise TypeError("Color argument is not a string.")
 		if type(lineStyle) is not str:
@@ -138,7 +141,7 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label="test1")
+		subplot.plot(dataX, dataY, label=Label ,color=Color, linestyle=lineStyle, marker=Marker)
 
 
 

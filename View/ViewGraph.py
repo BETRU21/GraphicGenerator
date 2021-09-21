@@ -88,8 +88,9 @@ class ViewGraph(QWidget, Ui_MainWindow):
         color = self.color
         marker = self.markerSymbols[self.cmb_marker.currentIndex()]
         lineStyle = self.cmb_lineType.currentText()
+        label = self.cmb_data.currentText()
         try:
-            self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker)
+            self.modelGraphic.addPlot(position, dataX, dataY, label, color, lineStyle, marker)
         except Exception as e:
             e = str(e)
             self.consoleView.showOnConsole(e, "red")
