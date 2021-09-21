@@ -52,9 +52,14 @@ class Curvefit:
 		else:
 			popt, pcov = curve_fit(function, dataX, dataY, bounds=bounds)
 
-		line = function(dataX, *popt)
+		if len(dataX) < 1000:
+			nbPoint = 1000
+		else:
+			nbPoint = len(dataX)
+		newDataX = np.linspace(dataX[0], dataX[-1], nbPoint)
+		line = function(newDataX, *popt)
 		self.popt = popt
-		return line
+		return line, newDataX
 
 	# Non-public functions
 

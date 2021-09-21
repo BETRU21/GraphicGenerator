@@ -27,12 +27,85 @@ class Graphic:
 		self.generatePositions()
 		self.generateSubplots()
 
+	def setXRange(self, position, limit):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		if type(limit) is not list:
+			raise TypeError("limit argument is not a list.")
+		if len(limit) != 2:
+			if len(limit) < 2:
+				raise ValueError(f"limit argument is too short ({len(limit)}), len must be 2.")
+			if len(limit) > 2:
+				raise ValueError(f"limit argument is too long ({len(limit)}), len must be 2.")
+		if type(limit[0]) is not float or type(limit[1]) is not float:
+			if type(limit[0]) is not int or type(limit[1]) is not int:
+				raise ValueError("elements in limit argument are not int or float.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.set_xlim(limit)
+
+	def setYRange(self, position, limit):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		if type(limit) is not list:
+			raise TypeError("limit argument is not a list.")
+		if len(limit) != 2:
+			if len(limit) < 2:
+				raise ValueError(f"limit argument is too short ({len(limit)}), len must be 2.")
+			if len(limit) > 2:
+				raise ValueError(f"limit argument is too long ({len(limit)}), len must be 2.")
+		if type(limit[0]) is not float or type(limit[1]) is not float:
+			if type(limit[0]) is not int or type(limit[1]) is not int:
+				raise ValueError("elements in limit argument are not int or float.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.set_ylim(limit)
+
 	def addSubtitle(self, position, title):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		if type(title) is not str:
+			raise TypeError("title argument is not a string.")
 		posX = position[0]
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
 		subplot.set_title(title)
+
+	def deleteSubtitle(self, position):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.set_title("")
+
+	def addMainTitle(self, title):
+		if type(title) is not str:
+			raise TypeError("title argument is not a string.")
+		self.figure.set_title(title)
+
+	def deleteMainTitle(self):
+		self.figure.set_title("")
+
+	def addLegend(self, position):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.legend(loc=1, fontsize=11)
+
+	def addLegends(self):
+		for i, pos in self.positions:
+			subplot = self.subplotsDict.get(pos)
+			subplot.legend(loc=1, fontsize=11)
 
 	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker=""):
 		"""
@@ -65,7 +138,9 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label="Yo bitch")
+		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label="test1")
+
+
 
 	# Non-Public Functions
 
