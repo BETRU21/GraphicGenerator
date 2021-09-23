@@ -166,7 +166,6 @@ class Graphic:
 		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label)
 
 
-
 	# Non-Public Functions
 
 	def generatePositions(self):
