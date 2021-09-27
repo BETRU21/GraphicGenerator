@@ -126,8 +126,29 @@ class Graphic:
 
 	def addLegends(self, fontSize=11):
 		for i, pos in enumerate(self.positions):
-			subplot = self.subplotsDict.get(pos)
+			posX = pos[0]
+			posY = pos[1]
+			position = (posY-1) * self.x + posX
+			subplot = self.subplotsDict.get(position)
 			subplot.legend(loc=1, fontsize=fontSize)
+
+	def deleteLegends(self):
+		for i, pos in enumerate(self.positions):
+			posX = pos[0]
+			posY = pos[1]
+			position = (posY-1) * self.x + posX
+			subplot = self.subplotsDict.get(position)
+			subplot.get_legend().remove()
+
+	def deleteLegend(self, position):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.get_legend().remove()
+
 
 	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label=""):
 		"""

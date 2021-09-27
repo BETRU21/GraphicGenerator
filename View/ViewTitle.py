@@ -19,11 +19,14 @@ class ViewTitle(QWidget, Ui_MainWindow):
 
     def connectWidgets(self):
         self.le_title.textChanged.connect(self.plotTitle)
-        self.pb_plot.clicked.connect(self.plotSubtitles)
-        self.pb_legend.clicked.connect(self.addSpecificLegend)
-        self.pb_deleteLegend.clicked.connect(self.deleteSpecificLegend)
+        self.le_xAxis.textChanged.connect(self.plotXSubtitle)
+        self.le_yAxis.textChanged.connect(self.plotYSubtitle)
+        self.le_subtitle.textChanged.connect(self.plotSubtitle)
+        self.pb_legend.clicked.connect(self.addLegendWithPosition)
+        self.pb_deleteLegend.clicked.connect(self.deleteLegendWithPosition)
         self.pb_legends.clicked.connect(self.addLegends)
         self.pb_deleteLegends.clicked.connect(self.deleteLegends)
+        self.cmb_pos.currentIndexChanged.connect(self.resetText)
 
     def setupWidgets(self):
         self.cmb_pos.clear()
@@ -31,31 +34,63 @@ class ViewTitle(QWidget, Ui_MainWindow):
             position = str(position)
             self.cmb_pos.addItem(position)
 
-    def addSpecificLegend(self):
-        pass
+    def addLegendWithPosition(self):
+        try:
+            positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+            position = (int(positionStr[0]), int(positionStr[1]))
+            self.modelGraphic.addLegend(position)
+        except Exception as e:
+            e = str(e)
+            self.consoleView.showOnConsole(e, "red")
 
-    def deleteSpecificLegend(self):
-        pass
+    def deleteLegendWithPosition(self):
+        try:
+            positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+            position = (int(positionStr[0]), int(positionStr[1]))
+            self.modelGraphic.deleteLegend(position)
+        except Exception as e:
+            e = str(e)
+            self.consoleView.showOnConsole(e, "red")
 
     def addLegends(self):
-        pass
+        try:
+            self.modelGraphic.addLegends()
+        except Exception as e:
+            e = str(e)
+            self.consoleView.showOnConsole(e, "red")
 
     def deleteLegends(self):
-        pass
+        try:
+            self.modelGraphic.deleteLegends()
+        except Exception as e:
+            e = str(e)
+            self.consoleView.showOnConsole(e, "red")
 
+    def resetText(self):
+        self.le_subtitle.clear()
+        self.le_xAxis.clear()
+        self.le_yAxis.clear()
 
     def plotTitle(self):
         title = self.le_title.text()
         self.modelGraphic.addMainTitle(title)
 
-    def plotSubtitles(self):
+    def plotSubtitle(self):
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
         position = (int(positionStr[0]), int(positionStr[1]))
         subtitle = self.le_subtitle.text()
-        subtitleX = self.le_xAxis.text()
-        subtitleY = self.le_yAxis.text()
         self.modelGraphic.addSubtitle(position, subtitle)
+
+    def plotXSubtitle(self):
+        positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+        position = (int(positionStr[0]), int(positionStr[1]))
+        subtitleX = self.le_xAxis.text()
         self.modelGraphic.addXSubtitle(position, subtitleX)
+
+    def plotYSubtitle(self):
+        positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+        position = (int(positionStr[0]), int(positionStr[1]))
+        subtitleY = self.le_yAxis.text()
         self.modelGraphic.addYSubtitle(position, subtitleY)
 
     def enableWidgets(self):
@@ -63,7 +98,6 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.le_subtitle.setEnabled(True)
         self.le_xAxis.setEnabled(True)
         self.le_yAxis.setEnabled(True)
-        self.pb_plot.setEnabled(True)
         self.cmb_pos.setEnabled(True)
 
 

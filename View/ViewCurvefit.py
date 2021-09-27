@@ -119,16 +119,16 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
 
         label = key + " curvefit"
 
-        if self.cb_bounds.checkState() == 0:
-            curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function)
-        else:
-            curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function, bounds)
         try:
+            if self.cb_bounds.checkState() == 0:
+                curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function)
+            else:
+                curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function, bounds)
             self.modelGraphic.addPlot(position, newDataX, curvefit, color, lineStyle, marker, label)
+            popt = str(self.modelCurvefit.currentPopt())
+            self.cmb_popt.clear()
+            self.cmb_popt.addItem(popt)
+            self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
         except Exception as e:
             e = str(e)
             self.consoleView.showOnConsole(e, "red")
-        popt = str(self.modelCurvefit.currentPopt())
-        self.cmb_popt.clear()
-        self.cmb_popt.addItem(popt)
-        self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
