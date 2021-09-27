@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>571</width>
+    <width>574</width>
     <height>507</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="">
+    <widget class="QGroupBox" name="groupBox">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(51, 56, 68);</string>
      </property>
@@ -182,6 +182,9 @@
           </item>
           <item>
            <widget class="QCheckBox" name="cb_bounds">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="font">
              <font>
               <pointsize>16</pointsize>

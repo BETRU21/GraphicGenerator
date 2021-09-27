@@ -186,6 +186,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QPushButton" name="pb_legend">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="font">
            <font>
             <pointsize>16</pointsize>
@@ -198,6 +201,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pb_deleteLegend">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="font">
            <font>
             <pointsize>16</pointsize>
@@ -214,6 +220,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="QPushButton" name="pb_legends">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="font">
            <font>
             <pointsize>16</pointsize>
@@ -226,6 +235,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pb_deleteLegends">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="font">
            <font>
             <pointsize>16</pointsize>

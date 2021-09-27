@@ -99,5 +99,9 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.le_xAxis.setEnabled(True)
         self.le_yAxis.setEnabled(True)
         self.cmb_pos.setEnabled(True)
+        self.pb_legend.setEnabled(True)
+        self.pb_legends.setEnabled(True)
+        self.pb_deleteLegend.setEnabled(True)
+        self.pb_deleteLegends.setEnabled(True)
 
 

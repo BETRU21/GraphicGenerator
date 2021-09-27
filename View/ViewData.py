@@ -69,6 +69,8 @@ class ViewData(QWidget, Ui_MainWindow):
         self.cmb_data.addItems(keysList)
         self.graphView.updateDataList(keysList)
         self.curvefitView.updateDataList(keysList)
+        lastIndice = self.cmb_data.count() - 1
+        self.cmb_data.setCurrentIndex(lastIndice)
 
     def setFilePath(self):
         try:

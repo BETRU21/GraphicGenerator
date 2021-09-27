@@ -55,6 +55,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         self.pb_addPlot.setEnabled(True)
         self.pb_clear.setEnabled(True)
         self.cmb_popt.setEnabled(True)
+        self.cb_bounds.setEnabled(True)
 
     def updateDecimal(self):
         decimal = self.sb_decimal.value()
