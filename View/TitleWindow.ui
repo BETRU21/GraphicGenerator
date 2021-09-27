@@ -194,30 +194,14 @@
             <pointsize>16</pointsize>
            </font>
           </property>
+          <property name="statusTip">
+           <string>Work with the position ComboBox</string>
+          </property>
           <property name="text">
-           <string>Add Legend With Position</string>
+           <string>Add Legend</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="pb_deleteLegend">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>16</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Delete Legend With Position</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="QPushButton" name="pb_legends">
           <property name="enabled">
@@ -230,6 +214,28 @@
           </property>
           <property name="text">
            <string>Add All Legends</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QPushButton" name="pb_deleteLegend">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="statusTip">
+           <string>Work with the position ComboBox</string>
+          </property>
+          <property name="text">
+           <string>Delete Legend</string>
           </property>
          </widget>
         </item>

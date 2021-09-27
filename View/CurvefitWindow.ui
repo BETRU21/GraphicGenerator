@@ -353,6 +353,9 @@
           <pointsize>16</pointsize>
          </font>
         </property>
+        <property name="statusTip">
+         <string>Optimal values for the parameters so that the sum of the squared error of ydata is minimized.</string>
+        </property>
         <property name="text">
          <string>Popt</string>
         </property>
@@ -367,6 +370,9 @@
          <font>
           <pointsize>16</pointsize>
          </font>
+        </property>
+        <property name="statusTip">
+         <string>Optimal values for the parameters so that the sum of the squared error of ydata is minimized.</string>
         </property>
        </widget>
       </item>
