@@ -13,10 +13,10 @@ class ViewData(QWidget, Ui_MainWindow):
         self.setupWidgets()
         self.connectWidgets()
 
-    def setupWidgets(self):
+    def setupWidgets(self): #01
         self.cmb_split.addItems([",", ";", ":", ".", ""])
 
-    def connectWidgets(self):
+    def connectWidgets(self): #02
         self.pb_filePath.clicked.connect(self.setFilePath)
         self.le_dataName.textChanged.connect(self.changeDataNameColorIndicator)
         self.pb_extract.clicked.connect(self.extractData)
@@ -24,16 +24,16 @@ class ViewData(QWidget, Ui_MainWindow):
         self.cmb_data.currentIndexChanged.connect(self.preview)
         self.sb_nbColumns.valueChanged.connect(self.setMaxColumn)
 
-    def setMaxColumn(self):
+    def setMaxColumn(self): #03
         maximum = self.sb_nbColumns.value()
         self.sb_xValues.setMaximum(maximum)
         self.sb_yValues.setMaximum(maximum)
 
-    def changeDataNameColorIndicator(self):
+    def changeDataNameColorIndicator(self): #04
         self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(0,255,0);}")
         self.pb_extract.setEnabled(True)
 
-    def changeFilePathColorIndicator(self, color):
+    def changeFilePathColorIndicator(self, color): #05
         if color == "green":
             indColor = "QCheckBox::indicator{background-color: rgb(0,255,0);}"
         elif color == "orange":
@@ -44,7 +44,7 @@ class ViewData(QWidget, Ui_MainWindow):
             raise ValueError("This color is not valid.")
         self.ind_filePath.setStyleSheet(indColor)
 
-    def extractData(self):
+    def extractData(self): #06
         path = self.le_filePath.text()
         dataName = self.le_dataName.text()
         splitSymbol = self.cmb_split.currentText()
@@ -60,10 +60,10 @@ class ViewData(QWidget, Ui_MainWindow):
             self.pb_reset.setEnabled(True)
             self.consoleView.showOnConsole("Successfully extracted data!", "green")
         except Exception as e:
-            e = str(e)
+            e = str(e) + " |ERROR:VD#06|"
             self.consoleView.showOnConsole(e, "red")
 
-    def updateDataLoaded(self):
+    def updateDataLoaded(self): #07
         keysList = self.modelData.dataDict.keys()
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
@@ -72,7 +72,7 @@ class ViewData(QWidget, Ui_MainWindow):
         lastIndice = self.cmb_data.count() - 1
         self.cmb_data.setCurrentIndex(lastIndice)
 
-    def setFilePath(self):
+    def setFilePath(self): #08
         try:
             filePath = QFileDialog.getOpenFileName(self, "Select File")[0]
             if filePath == "":
@@ -81,11 +81,11 @@ class ViewData(QWidget, Ui_MainWindow):
             self.consoleView.showOnConsole("filePath found !", "green")
             self.changeFilePathColorIndicator("green")
         except Exception as e:
-            e = str(e)
+            e = str(e) + " |ERROR:VD#08|"
             self.consoleView.showOnConsole(e, "red")
             self.changeFilePathColorIndicator("red")
 
-    def resetData(self):
+    def resetData(self): #09
         self.cmb_data.clear()
         self.graphView.cmb_data.clear()
         self.modelData.resetDataDict()
@@ -93,7 +93,7 @@ class ViewData(QWidget, Ui_MainWindow):
         self.ind_filePath.setStyleSheet("QCheckBox::indicator{background-color: rgb(0,255,0);}")
         self.pb_extract.setEnabled(True)
 
-    def preview(self):
+    def preview(self): #10
         try:
             key = self.cmb_data.currentText()
             data = self.modelData.getData(key)

@@ -13,6 +13,16 @@ elif os.name == 'posix':
 
 applicationPath = os.path.abspath("")
 
+"""
+|| Error code chart ||
+    ViewData: VD#XX
+    ViewGraph: VG#XX
+    ViewTitle: VT#XX
+    MainWindow: MW#XX
+    ViewCurvefit: VC#XX
+||                  ||
+"""
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyle("Fusion")

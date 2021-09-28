@@ -23,7 +23,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.createsComponentsAndPointers()
         self.setupWindowTabs()
 
-    def setupWindowTabs(self):
+    def setupWindowTabs(self): #01
         self.tabWidget = QTabWidget()
         self.setCentralWidget(self.tabWidget)
         self.tabWidget.addTab(self.dataView, "Data")
@@ -32,7 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tabWidget.addTab(self.titleView, "Title")
         self.tabWidget.addTab(self.consoleView, "Console")
 
-    def createsComponentsAndPointers(self):
+    def createsComponentsAndPointers(self): #02
         # Components
         self.graphView = ViewGraph(self.modelGraphic, self.modelData)
         self.consoleView = ViewConsole()

@@ -6,8 +6,6 @@ import os
 MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}CurvefitWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
-# TODO : add linspace option to plot function with better resolution
-
 class ViewCurvefit(QWidget, Ui_MainWindow):
     def __init__(self, modelGraphic, modelData, modelCurvefit):
         super(ViewCurvefit, self).__init__()
@@ -22,7 +20,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         self.connectWidgets()
         self.setupWidgets()
 
-    def setupWidgets(self):
+    def setupWidgets(self): #01
         self.cmb_lineType.clear()
         self.cmb_pos.clear()
         self.cmb_marker.clear()
@@ -36,7 +34,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             position = str(position)
             self.cmb_pos.addItem(position)
 
-    def connectWidgets(self):
+    def connectWidgets(self): #02
         self.cmb_function.currentIndexChanged.connect(self.updateInfo)
         self.cb_bounds.stateChanged.connect(self.enableBounds)
         self.sb_decimal.valueChanged.connect(self.updateDecimal)
@@ -44,7 +42,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         self.pb_addPlot.clicked.connect(self.plot)
         self.pb_clear.clicked.connect(self.clearData)
 
-    def enableWidgets(self):
+    def enableWidgets(self): #03
         self.cmb_function.setEnabled(True)
         self.sb_decimal.setEnabled(True)
         self.cmb_pos.setEnabled(True)
@@ -57,12 +55,12 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         self.cmb_popt.setEnabled(True)
         self.cb_bounds.setEnabled(True)
 
-    def updateDecimal(self):
+    def updateDecimal(self): #04
         decimal = self.sb_decimal.value()
         self.sb_min.setDecimals(decimal)
         self.sb_max.setDecimals(decimal)
 
-    def enableBounds(self):
+    def enableBounds(self): #05
         if self.cb_bounds.checkState() == 0:
             self.sb_min.setEnabled(False)
             self.sb_max.setEnabled(False)
@@ -70,13 +68,13 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             self.sb_min.setEnabled(True)
             self.sb_max.setEnabled(True)
 
-    def updateInfo(self):
+    def updateInfo(self): #06
         key = self.cmb_function.currentText()
         info = self.modelCurvefit.getFunctionParam(key)
         self.le_info.clear()
         self.le_info.setText(info)
 
-    def selectColor(self):
+    def selectColor(self): #07
         color = QColorDialog.getColor()
 
         if color.isValid():
@@ -87,49 +85,65 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             self.ind_color.setStyleSheet(styleSheetParameter)
 
 
-    def clearData(self):
+    def clearData(self): #08
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
         position = (int(positionStr[0]), int(positionStr[1]))
         self.modelGraphic.deleteSpecificPlot(position)
 
-    def getSelectedData(self):
+    def getSelectedData(self): #09
         key = self.cmb_data.currentText()
         data = self.modelData.getData(key)
         dataX = data.get("xValues")
         dataY = data.get("yValues")
         return (dataX, dataY)
 
-    def updateDataList(self, keysList):
+
+    def updateDataList(self, keysList): #10
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
 
 
-    def plot(self):
-        positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
-        position = (int(positionStr[0]), int(positionStr[1]))
-        color = self.color
-        marker = self.markerSymbols[self.cmb_marker.currentIndex()]
-        lineStyle = self.cmb_lineType.currentText()
-
-        dataX, dataY = self.getSelectedData()
-        key = self.cmb_function.currentText()
-        dataX = np.array(dataX)
-        dataY = np.array(dataY)
-        function = self.modelCurvefit.getFunction(key)
-        bounds = (self.sb_min.value(), self.sb_max.value())
-
-        label = key + " curvefit"
-
+    def plot(self): #11
         try:
-            if self.cb_bounds.checkState() == 0:
-                curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function)
-            else:
-                curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function, bounds)
-            self.modelGraphic.addPlot(position, newDataX, curvefit, color, lineStyle, marker, label)
-            popt = str(self.modelCurvefit.currentPopt())
-            self.cmb_popt.clear()
-            self.cmb_popt.addItem(popt)
-            self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
-        except Exception as e:
-            e = str(e)
-            self.consoleView.showOnConsole(e, "red")
+            positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+            position = (int(positionStr[0]), int(positionStr[1]))
+            color = self.color
+            marker = self.markerSymbols[self.cmb_marker.currentIndex()]
+            lineStyle = self.cmb_lineType.currentText()
+
+            try:
+                dataX, dataY = self.getSelectedData()
+                key = self.cmb_function.currentText()
+                dataX = np.array(dataX)
+                dataY = np.array(dataY)
+                function = self.modelCurvefit.getFunction(key)
+                bounds = (self.sb_min.value(), self.sb_max.value())
+            except Exception as e:
+                e = str(e)
+                self.consoleView.showOnConsole("There is no data to curvefit. |ERROR:VC#11|", "red")
+                raise ValueError("To stop the process after catching the error.")
+
+            label = key + " curvefit"
+
+            try:
+                if self.cb_bounds.checkState() == 0:
+                    curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function)
+                else:
+                    curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function, bounds)
+            except Exception as e:
+                self.consoleView.showOnConsole("Curvefit failed. |ERROR:VC#11|", "red")
+                raise ValueError("To stop the process after catching the error.")
+
+            try:
+                self.modelGraphic.addPlot(position, newDataX, curvefit, color, lineStyle, marker, label)
+                popt = str(self.modelCurvefit.currentPopt())
+                self.cmb_popt.clear()
+                self.cmb_popt.addItem(popt)
+                self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
+            except Exception as e:
+                e = str(e) + " |ERROR:VC#11|"
+                self.consoleView.showOnConsole(e, "red")
+                raise ValueError("To stop the process after catching the error.")
+
+        except:
+            pass # To stop the process after catching the error.

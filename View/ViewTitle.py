@@ -6,8 +6,6 @@ import os
 MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}TitleWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
-# TODO : Faire les fonctionnalités de légendes et titres.
-
 class ViewTitle(QWidget, Ui_MainWindow):
     def __init__(self, modelGraphic, modelData):
         super(ViewTitle, self).__init__()
@@ -17,7 +15,7 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.setupWidgets()
         self.connectWidgets()
 
-    def connectWidgets(self):
+    def connectWidgets(self): #01
         self.le_title.textChanged.connect(self.plotTitle)
         self.le_xAxis.textChanged.connect(self.plotXSubtitle)
         self.le_yAxis.textChanged.connect(self.plotYSubtitle)
@@ -28,72 +26,81 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.pb_deleteLegends.clicked.connect(self.deleteLegends)
         self.cmb_pos.currentIndexChanged.connect(self.resetText)
 
-    def setupWidgets(self):
+    def setupWidgets(self): #02
         self.cmb_pos.clear()
         for i, position in enumerate(self.modelGraphic.positions):
             position = str(position)
             self.cmb_pos.addItem(position)
 
-    def addLegendWithPosition(self):
+    def addLegendWithPosition(self): #03
         try:
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             self.modelGraphic.addLegend(position)
         except Exception as e:
-            e = str(e)
+            e = str(e) + " |ERROR:VT#03|"
             self.consoleView.showOnConsole(e, "red")
 
-    def deleteLegendWithPosition(self):
+    def deleteLegendWithPosition(self): #04
         try:
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             self.modelGraphic.deleteLegend(position)
         except Exception as e:
-            e = str(e)
+            e = str(e) + " |ERROR:VT#04|"
             self.consoleView.showOnConsole(e, "red")
 
-    def addLegends(self):
+    def addLegends(self): #05
         try:
             self.modelGraphic.addLegends()
         except Exception as e:
-            e = str(e)
+            e = str(e) + " |ERROR:VT#05|"
             self.consoleView.showOnConsole(e, "red")
 
-    def deleteLegends(self):
+    def deleteLegends(self): #06
         try:
             self.modelGraphic.deleteLegends()
         except Exception as e:
-            e = str(e)
+            e = str(e) + " |ERROR:VT#06|"
             self.consoleView.showOnConsole(e, "red")
 
-    def resetText(self):
+    def resetText(self): #07
         self.le_subtitle.clear()
         self.le_xAxis.clear()
         self.le_yAxis.clear()
 
-    def plotTitle(self):
+    def plotTitle(self): #08
         title = self.le_title.text()
         self.modelGraphic.addMainTitle(title)
 
-    def plotSubtitle(self):
-        positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
-        position = (int(positionStr[0]), int(positionStr[1]))
-        subtitle = self.le_subtitle.text()
-        self.modelGraphic.addSubtitle(position, subtitle)
+    def plotSubtitle(self): #09
+        try:
+            positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+            position = (int(positionStr[0]), int(positionStr[1]))
+            subtitle = self.le_subtitle.text()
+            self.modelGraphic.addSubtitle(position, subtitle)
+        except:
+            pass
 
-    def plotXSubtitle(self):
-        positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
-        position = (int(positionStr[0]), int(positionStr[1]))
-        subtitleX = self.le_xAxis.text()
-        self.modelGraphic.addXSubtitle(position, subtitleX)
+    def plotXSubtitle(self): #10
+        try:
+            positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+            position = (int(positionStr[0]), int(positionStr[1]))
+            subtitleX = self.le_xAxis.text()
+            self.modelGraphic.addXSubtitle(position, subtitleX)
+        except:
+            pass
 
-    def plotYSubtitle(self):
-        positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
-        position = (int(positionStr[0]), int(positionStr[1]))
-        subtitleY = self.le_yAxis.text()
-        self.modelGraphic.addYSubtitle(position, subtitleY)
+    def plotYSubtitle(self): #11
+        try:
+            positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
+            position = (int(positionStr[0]), int(positionStr[1]))
+            subtitleY = self.le_yAxis.text()
+            self.modelGraphic.addYSubtitle(position, subtitleY)
+        except:
+            pass
 
-    def enableWidgets(self):
+    def enableWidgets(self): #12
         self.le_title.setEnabled(True)
         self.le_subtitle.setEnabled(True)
         self.le_xAxis.setEnabled(True)
@@ -103,5 +110,3 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.pb_legends.setEnabled(True)
         self.pb_deleteLegend.setEnabled(True)
         self.pb_deleteLegends.setEnabled(True)
-
-
