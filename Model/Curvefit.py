@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.optimize import curve_fit
 
-
 class Curvefit:
 	def __init__(self):
 		self.functions = {}
