@@ -3,7 +3,7 @@ from PyQt5 import uic
 import sys
 import os
 
-MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}GraphWindow.ui'.format(os.sep)
+MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '/ui{}GraphWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
 class ViewGraph(QWidget, Ui_MainWindow):

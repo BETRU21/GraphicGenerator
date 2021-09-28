@@ -3,7 +3,7 @@ from PyQt5 import uic
 import sys
 import os
 
-MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}TitleWindow.ui'.format(os.sep)
+MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '/ui{}TitleWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
 class ViewTitle(QWidget, Ui_MainWindow):

@@ -3,7 +3,7 @@ from PyQt5 import uic
 from PyQt5 import QtGui
 import os
 
-MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}ConsoleWindow.ui'.format(os.sep)
+MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '/ui{}ConsoleWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
 class ViewConsole(QWidget, Ui_MainWindow):

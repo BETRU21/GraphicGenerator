@@ -3,7 +3,7 @@ from PyQt5 import uic
 import numpy as np
 import os
 
-MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}CurvefitWindow.ui'.format(os.sep)
+MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '/ui{}CurvefitWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
 class ViewCurvefit(QWidget, Ui_MainWindow):

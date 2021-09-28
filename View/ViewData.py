@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QFileDialog
 from PyQt5 import uic
 import os
 
-MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '{}DataWindow.ui'.format(os.sep)
+MainWindowPath = os.path.dirname(os.path.realpath(__file__)) + '/ui{}DataWindow.ui'.format(os.sep)
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindowPath)
 
 class ViewData(QWidget, Ui_MainWindow):
