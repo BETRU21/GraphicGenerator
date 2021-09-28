@@ -49,6 +49,28 @@ class TestDataExtractor(unittest.TestCase):
 	def testAddDataWithDataCutRowWithoutCuttingRow(self):
 		self.assertRaises(ValueError, self.DataExtractor.addData, dataCutRow, "data", ",", deleteFirstRow=1)
 
+	def testAddDataWrongPathArgument(self):
+		WrongPath = filesPath + "/nothing.txt"
+		self.assertRaises(FileNotFoundError, self.DataExtractor.addData, WrongPath, "data", ",")
+
+	def testAddDataBadTypePathArgument(self):
+		self.assertRaises(TypeError, self.DataExtractor.addData, 3, "data", ",")
+
+	def testAddDataBadTypeFileNameArgument(self):
+		self.assertRaises(TypeError, self.DataExtractor.addData, dataTXT, 3, ",")
+
+	def testAddDataBadTypeSplitSymbolArgument(self):
+		self.assertRaises(TypeError, self.DataExtractor.addData, dataTXT, "data", 3)
+
+	def testAddDataBadTypeDeleteFirstRowArgument(self):
+		self.assertRaises(TypeError, self.DataExtractor.addData, dataTXT, "data", ",", deleteFirstRow="1")
+
+	def testAddDataBadTypexValuesPosArgument(self):
+		self.assertRaises(TypeError, self.DataExtractor.addData, dataTXT, "data", ",", xValuesPos="1")
+
+	def testAddDataBadTypeyValuesPosArgument(self):
+		self.assertRaises(TypeError, self.DataExtractor.addData, dataTXT, "data", ",", yValuesPos="1")
+
 	def testResetDataDict(self):
 		self.DataExtractor.resetDataDict()
 		self.assertEqual(len(self.DataExtractor.dataDict), 0)
