@@ -50,3 +50,6 @@ class DataExtractor:
             x.append(float(elem[xValuesPos]))
             y.append(float(elem[yValuesPos]))
         self.dataDict[dataName] = {"xValues": x, "yValues": y}
+
+    def listData(self):
+        return list(self.dataDict.keys())

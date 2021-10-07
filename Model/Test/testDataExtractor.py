@@ -92,5 +92,19 @@ class TestDataExtractor(unittest.TestCase):
 		data1 = self.DataExtractor.getData("data1")
 		self.assertIsNone(data1)
 
+	def testListData(self):
+		self.DataExtractor.addData(dataTXT, "data1", ",")
+		self.DataExtractor.addData(dataTXT, "data2", ",")
+		self.DataExtractor.addData(dataTXT, "data3", ",")
+		self.DataExtractor.addData(dataTXT, "data4", ",")
+		self.DataExtractor.addData(dataTXT, "data5", ",")
+		allData = self.DataExtractor.listData()
+		self.assertListEqual(allData,["data1", "data2", "data3", "data4", "data5"])
+
+	def testListData(self):
+		allData = self.DataExtractor.listData()
+		self.assertListEqual(allData,[])
+
+
 if __name__ == "__main__":
     unittest.main()

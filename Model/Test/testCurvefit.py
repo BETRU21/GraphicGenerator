@@ -11,13 +11,17 @@ filesPath = os.path.abspath("") + "/files"
 class TestCurvefit(unittest.TestCase):
 
 	def setUp(self):
-		self.Curvefit = Curvefit()
+		self.curvefit = Curvefit()
 
 	def testImportCurvefit(self):
 		self.assertIsNotNone(Curvefit)
 
 	def testCreateCurvefitInstance(self):
-		self.assertIsNotNone(self.Curvefit)
+		self.assertIsNotNone(self.curvefit)
+
+	def testListFunctions(self):
+		functions = self.curvefit.listFunctions()
+		self.assertListEqual(functions, ["sinus", "cosinus", "gaussian", "exponential", "straightLine", "polynomial2Degree", "polynomial3Degree"])
 
 if __name__ == "__main__":
     unittest.main()

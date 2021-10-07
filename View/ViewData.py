@@ -64,7 +64,7 @@ class ViewData(QWidget, Ui_MainWindow):
             self.consoleView.showOnConsole(e, "red")
 
     def updateDataLoaded(self): #07
-        keysList = self.modelData.dataDict.keys()
+        keysList = self.modelData.listData()
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
         self.graphView.updateDataList(keysList)

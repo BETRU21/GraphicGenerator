@@ -11,12 +11,9 @@ class Curvefit:
 
 	# Public functions
 
-	def currentPopt(self):
-		return self.popt
-
 	def listFunctions(self):
 		"""List premade functions."""
-		return self.functions.keys()
+		return list(self.functions.keys())
 
 	def getFunction(self, key):
 		if type(key) is not str:
@@ -33,6 +30,9 @@ class Curvefit:
 
 	def getAllFunctionParam(self):
 		return self.functionsParam
+
+	def currentPopt(self):
+		return self.popt
 
 	def curvefit(self, dataX, dataY, function, bounds=False):
 		"""Curvefit a function with data.
