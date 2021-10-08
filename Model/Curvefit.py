@@ -17,7 +17,7 @@ class Curvefit:
 
 	def getFunction(self, key):
 		if type(key) is not str:
-			raise TypeError(string)
+			raise TypeError("key argument is not a string.")
 		return self.functions.get(key)
 
 	def getAllFunction(self):
@@ -25,7 +25,7 @@ class Curvefit:
 
 	def getFunctionParam(self, key):
 		if type(key) is not str:
-			raise TypeError(string)
+			raise TypeError("key argument is not a string.")
 		return self.functionsParam.get(key)
 
 	def getAllFunctionParam(self):
@@ -45,6 +45,9 @@ class Curvefit:
 			raise TypeError("dataY is not a np.ndarray.")
 		if len(dataX) != len(dataY):
 			raise ValueError("data len are not equal.")
+		if bounds is not False:
+			if type(bounds) is not tuple:
+				raise TypeError("bounds argument is not a tuple.")
 
 		if not bounds:
 			popt, pcov = curve_fit(function, dataX, dataY)
