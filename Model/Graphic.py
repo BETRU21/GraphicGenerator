@@ -9,13 +9,6 @@ class Graphic:
 
 	# Public Functions
 
-	def deleteSpecificPlot(self, position):
-		posX = position[0]
-		posY = position[1]
-		position = (posY-1) * self.x + posX
-		subplot = self.subplotsDict.get(position)
-		subplot.clear()
-
 	def generateGraph(self, x, y):
 		if type(x) is not int:
 			raise TypeError("x argument is not int.")
@@ -26,6 +19,15 @@ class Graphic:
 		self.y = y
 		self.generatePositions()
 		self.generateSubplots()
+
+	def deleteSpecificPlot(self, position):
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.clear()
 
 	def setXRange(self, position, limit):
 		if type(position) is not tuple:
