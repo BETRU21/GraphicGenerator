@@ -67,7 +67,7 @@ class Graphic:
 		subplot = self.subplotsDict.get(position)
 		subplot.set_ylim(limit)
 
-	def addSubtitle(self, position, title, fontSize=10):
+	def addSubtitle(self, position, title, fontSize=12):
 		if type(position) is not tuple:
 			raise TypeError("position argument is not a tuple.")
 		if type(title) is not str:
@@ -87,7 +87,7 @@ class Graphic:
 		subplot = self.subplotsDict.get(position)
 		subplot.set_title("", fontsize=1)
 
-	def addXSubtitle(self, position, title, fontSize=8):
+	def addXSubtitle(self, position, title, fontSize=12):
 		if type(position) is not tuple:
 			raise TypeError("position argument is not a tuple.")
 		if type(title) is not str:
@@ -98,7 +98,7 @@ class Graphic:
 		subplot = self.subplotsDict.get(position)
 		subplot.set_xlabel(title, fontsize=fontSize)
 
-	def addYSubtitle(self, position, title, fontSize=8):
+	def addYSubtitle(self, position, title, fontSize=12):
 		if type(position) is not tuple:
 			raise TypeError("position argument is not a tuple.")
 		if type(title) is not str:
@@ -117,22 +117,22 @@ class Graphic:
 	def deleteMainTitle(self):
 		self.figure.suptitle("", fontsize=1)
 
-	def addLegend(self, position, fontSize=11):
+	def addLegend(self, position, fontSize=12):
 		if type(position) is not tuple:
 			raise TypeError("position argument is not a tuple.")
 		posX = position[0]
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.legend(loc=1, fontsize=fontSize)
+		subplot.legend(loc=1, fontsize=fontSize).set_draggable(state=True)
 
-	def addLegends(self, fontSize=11):
+	def addLegends(self, fontSize=12):
 		for i, pos in enumerate(self.positions):
 			posX = pos[0]
 			posY = pos[1]
 			position = (posY-1) * self.x + posX
 			subplot = self.subplotsDict.get(position)
-			subplot.legend(loc=1, fontsize=fontSize)
+			subplot.legend(loc=1, fontsize=fontSize).set_draggable(state=True)
 
 	def deleteLegends(self):
 		for i, pos in enumerate(self.positions):
@@ -152,7 +152,7 @@ class Graphic:
 		subplot.get_legend().remove()
 
 
-	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label=""):
+	def addPlotWithErrorBar(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label=""):
 		"""
 		Args:
 			position(tuple): The position in the figure.
@@ -187,6 +187,43 @@ class Graphic:
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
 		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label)
+
+
+	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label="", errorBarX=None, errorBarY=None, Ecolor="#000000"):
+		"""
+		Args:
+			position(tuple): The position in the figure.
+			dataX(list or np.ndarray): Data x to plot in the figure.
+			dataY(list of np.ndarray): Data y to plot in the figure.
+			Label(str): Label show when add a legend.
+			[Facultative]
+			Color(str): The color of the plot.
+			lineStyle(str): "solid", "dotted","dashed", "dashdot"
+			Marker(str): Find all possibility at : https://matplotlib.org/stable/api/markers_api.html
+		Return:
+			None
+		"""
+		if type(position) is not tuple:
+			raise TypeError("position argument is not a tuple.")
+		if type(dataX) is not list:
+			if type(dataX) is not np.ndarray:
+				raise TypeError("dataX argument is not a list or numpy.ndarray.")
+		if type(dataY) is not list:
+			if type(dataY) is not np.ndarray:
+				raise TypeError("dataY argument is not a list or numpy.ndarray.")
+		if type(Label) is not str:
+			raise TypeError("Label argument is not a string.")
+		if type(Color) is not str:
+			raise TypeError("Color argument is not a string.")
+		if type(lineStyle) is not str:
+			raise TypeError("lineStyle argument is not a string.")
+		if type(Marker) is not str:
+			raise TypeError("Marker argument is not a string.")
+		posX = position[0]
+		posY = position[1]
+		position = (posY-1) * self.x + posX
+		subplot = self.subplotsDict.get(position)
+		subplot.errorbar(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label, xerr=errorBarX, yerr=errorBarY, barsabove=True, ecolor=Ecolor)
 
 
 	# Non-Public Functions

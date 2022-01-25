@@ -25,6 +25,10 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.pb_legends.clicked.connect(self.addLegends)
         self.pb_deleteLegends.clicked.connect(self.deleteLegends)
         self.cmb_pos.currentIndexChanged.connect(self.resetText)
+        self.sb_title.valueChanged.connect(self.plotTitle)
+        self.sb_subtitle.valueChanged.connect(self.plotSubtitle)
+        self.sb_xAxisTitle.valueChanged.connect(self.plotXSubtitle)
+        self.sb_yAxisTitle.valueChanged.connect(self.plotYSubtitle)
 
     def setupWidgets(self): #02
         self.cmb_pos.clear()
@@ -70,15 +74,20 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.le_yAxis.clear()
 
     def plotTitle(self): #08
-        title = self.le_title.text()
-        self.modelGraphic.addMainTitle(title)
+        try:
+            title = self.le_title.text()
+            font = self.sb_title.value()
+            self.modelGraphic.addMainTitle(title, fontSize=font)
+        except:
+            pass
 
     def plotSubtitle(self): #09
         try:
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             subtitle = self.le_subtitle.text()
-            self.modelGraphic.addSubtitle(position, subtitle)
+            font = self.sb_subtitle.value()
+            self.modelGraphic.addSubtitle(position, subtitle, fontSize=font)
         except:
             pass
 
@@ -87,7 +96,8 @@ class ViewTitle(QWidget, Ui_MainWindow):
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             subtitleX = self.le_xAxis.text()
-            self.modelGraphic.addXSubtitle(position, subtitleX)
+            font = self.sb_xAxisTitle.value()
+            self.modelGraphic.addXSubtitle(position, subtitleX, fontSize=font)
         except:
             pass
 
@@ -96,7 +106,8 @@ class ViewTitle(QWidget, Ui_MainWindow):
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             subtitleY = self.le_yAxis.text()
-            self.modelGraphic.addYSubtitle(position, subtitleY)
+            font = self.sb_yAxisTitle.value()
+            self.modelGraphic.addYSubtitle(position, subtitleY, fontSize=font)
         except:
             pass
 
@@ -110,3 +121,7 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.pb_legends.setEnabled(True)
         self.pb_deleteLegend.setEnabled(True)
         self.pb_deleteLegends.setEnabled(True)
+        self.sb_title.setEnabled(True)
+        self.sb_subtitle.setEnabled(True)
+        self.sb_xAxisTitle.setEnabled(True)
+        self.sb_yAxisTitle.setEnabled(True)

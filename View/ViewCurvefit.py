@@ -36,15 +36,13 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
 
     def connectWidgets(self): #02
         self.cmb_function.currentIndexChanged.connect(self.updateInfo)
-        self.cb_bounds.stateChanged.connect(self.enableBounds)
-        self.sb_decimal.valueChanged.connect(self.updateDecimal)
+        self.cb_p0.stateChanged.connect(self.enableP0)
         self.pb_selectColor.clicked.connect(self.selectColor)
         self.pb_addPlot.clicked.connect(self.plot)
         self.pb_clear.clicked.connect(self.clearData)
 
     def enableWidgets(self): #03
         self.cmb_function.setEnabled(True)
-        self.sb_decimal.setEnabled(True)
         self.cmb_pos.setEnabled(True)
         self.cmb_data.setEnabled(True)
         self.pb_selectColor.setEnabled(True)
@@ -52,27 +50,25 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         self.cmb_marker.setEnabled(True)
         self.pb_addPlot.setEnabled(True)
         self.pb_clear.setEnabled(True)
-        self.cmb_popt.setEnabled(True)
-        self.cb_bounds.setEnabled(True)
+        self.le_popt.setEnabled(True)
+        self.le_var.setEnabled(True)
+        self.cb_p0.setEnabled(True)
 
-    def updateDecimal(self): #04
-        decimal = self.sb_decimal.value()
-        self.sb_min.setDecimals(decimal)
-        self.sb_max.setDecimals(decimal)
-
-    def enableBounds(self): #05
-        if self.cb_bounds.checkState() == 0:
-            self.sb_min.setEnabled(False)
-            self.sb_max.setEnabled(False)
+    def enableP0(self): #05
+        if self.cb_p0.checkState() == 0:
+            self.le_p0.setEnabled(False)
         else:
-            self.sb_min.setEnabled(True)
-            self.sb_max.setEnabled(True)
+            self.le_p0.setEnabled(True)
 
     def updateInfo(self): #06
         key = self.cmb_function.currentText()
-        info = self.modelCurvefit.getFunctionParam(key)
+        info = self.modelCurvefit.getFunctionForm(key)
         self.le_info.clear()
         self.le_info.setText(info)
+        params = self.modelCurvefit.getFunctionParams(key)
+        self.la_param.clear()
+        self.la_param.setText(params)
+
 
     def selectColor(self): #07
         color = QColorDialog.getColor()
@@ -110,6 +106,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             color = self.color
             marker = self.markerSymbols[self.cmb_marker.currentIndex()]
             lineStyle = self.cmb_lineType.currentText()
+            label = self.le_label.text()
 
             try:
                 dataX, dataY = self.getSelectedData()
@@ -117,19 +114,19 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
                 dataX = np.array(dataX)
                 dataY = np.array(dataY)
                 function = self.modelCurvefit.getFunction(key)
-                bounds = (self.sb_min.value(), self.sb_max.value())
             except Exception as e:
                 e = str(e)
                 self.consoleView.showOnConsole("There is no data to curvefit. |ERROR:VC#11|", "red")
                 raise ValueError("To stop the process after catching the error.")
 
-            label = key + " curvefit"
-
             try:
-                if self.cb_bounds.checkState() == 0:
+                if self.cb_p0.checkState() == 0:
                     curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function)
                 else:
-                    curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function, bounds)
+                    p0STR = self.le_p0.text()
+                    intermediateList = p0STR.split(",")
+                    p0 = list(map(float, intermediateList))   
+                    curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function, P0=p0)
             except Exception as e:
                 self.consoleView.showOnConsole("Curvefit failed. |ERROR:VC#11|", "red")
                 raise ValueError("To stop the process after catching the error.")
@@ -137,8 +134,11 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             try:
                 self.modelGraphic.addPlot(position, newDataX, curvefit, color, lineStyle, marker, label)
                 popt = str(self.modelCurvefit.currentPopt())
-                self.cmb_popt.clear()
-                self.cmb_popt.addItem(popt)
+                deltaValues = str(self.modelCurvefit.currentDeltaValues())
+                self.le_popt.clear()
+                self.le_popt.setText(popt)
+                self.le_var.clear()
+                self.le_var.setText(deltaValues)
                 self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
             except Exception as e:
                 e = str(e) + " |ERROR:VC#11|"

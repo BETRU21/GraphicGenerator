@@ -20,7 +20,6 @@ applicationPath = os.path.abspath("")
     ViewTitle: VT#XX
     MainWindow: MW#XX
     ViewCurvefit: VC#XX
-||                  ||
 """
 
 if __name__ == "__main__":
