@@ -40,7 +40,8 @@ class ViewTitle(QWidget, Ui_MainWindow):
         try:
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
-            self.modelGraphic.addLegend(position)
+            font = self.sb_legend.value()
+            self.modelGraphic.addLegend(position, fontSize=font)
         except Exception as e:
             e = str(e) + " |ERROR:VT#03|"
             self.consoleView.showOnConsole(e, "red")
@@ -56,7 +57,8 @@ class ViewTitle(QWidget, Ui_MainWindow):
 
     def addLegends(self): #05
         try:
-            self.modelGraphic.addLegends()
+            font = self.sb_legend.value()
+            self.modelGraphic.addLegends(fontSize=font)
         except Exception as e:
             e = str(e) + " |ERROR:VT#05|"
             self.consoleView.showOnConsole(e, "red")
@@ -125,3 +127,4 @@ class ViewTitle(QWidget, Ui_MainWindow):
         self.sb_subtitle.setEnabled(True)
         self.sb_xAxisTitle.setEnabled(True)
         self.sb_yAxisTitle.setEnabled(True)
+        self.sb_legend.setEnabled(True)
