@@ -37,6 +37,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.pb_selectColor.clicked.connect(self.selectColor)
         self.pb_clear.clicked.connect(self.clearData)
         self.pb_selectColorError.clicked.connect(self.selectColorError)
+        self.cb_errorBar.stateChanged.connect(self.enableErrorBar)
 
     def clearData(self): #03
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
@@ -84,8 +85,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.pb_addPlot.setEnabled(True)
         self.pb_clear.setEnabled(True)
         self.pb_selectColorError.setEnabled(True)
-        self.sb_Xerror.setEnabled(True)
-        self.sb_Yerror.setEnabled(True)
+        self.cb_errorBar.setEnabled(True)
 
     def getSelectedData(self): #07
         key = self.cmb_data.currentText()
@@ -93,6 +93,19 @@ class ViewGraph(QWidget, Ui_MainWindow):
         dataX = data.get("xValues")
         dataY = data.get("yValues")
         return (dataX, dataY)
+
+    def enableErrorBar(self): #05
+        if self.cb_errorBar.checkState() == 0:
+            self.sb_Xerror.setEnabled(False)
+            self.sb_Yerror.setEnabled(False)
+            self.sb_errorThickness.setEnabled(False)
+            self.sb_errorBarSize.setEnabled(False)
+            # Finir ensuite
+        else:
+            self.sb_Xerror.setEnabled(True)
+            self.sb_Yerror.setEnabled(True)
+            self.sb_errorThickness.setEnabled(True)
+            self.sb_errorBarSize.setEnabled(True)
 
     def plot(self): #08
         try:
@@ -107,11 +120,18 @@ class ViewGraph(QWidget, Ui_MainWindow):
                 label = self.cmb_data.currentText()
                 xError = float(self.sb_Xerror.value())
                 yError = float(self.sb_Yerror.value())
+                errorBarSize = self.sb_errorBarSize.value()
+                errorBarThickness = self.sb_errorThickness.value()
+
+                # faire ici
             except Exception as e:
                 self.consoleView.showOnConsole("There is no data to plot. |ERROR:VG#08|", "red")
                 raise ValueError("To stop the process after catching the error.")
             try:
-                self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, xError, yError, Ecolor=errorBarColor)
+                if self.cb_errorBar.checkState() == 2:
+                    self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, xError, yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness)
+                else:
+                    self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label)
             except Exception as e:
                 e = str(e) + " |ERROR:VG#08|"
                 self.consoleView.showOnConsole(e, "red")

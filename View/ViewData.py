@@ -14,7 +14,7 @@ class ViewData(QWidget, Ui_MainWindow):
         self.connectWidgets()
 
     def setupWidgets(self): #01
-        self.cmb_split.addItems([",", ";", ":", ".", ""])
+        self.cmb_split.addItems([",", ";", ":", ".", "  "])
 
     def connectWidgets(self): #02
         self.pb_filePath.clicked.connect(self.setFilePath)
@@ -71,6 +71,9 @@ class ViewData(QWidget, Ui_MainWindow):
         self.curvefitView.updateDataList(keysList)
         lastIndice = self.cmb_data.count() - 1
         self.cmb_data.setCurrentIndex(lastIndice)
+
+        self.modifyDataView.cmb_data.clear()
+        self.modifyDataView.cmb_data.addItems(keysList)
 
     def setFilePath(self): #08
         try:

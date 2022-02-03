@@ -3,6 +3,7 @@ from View.ViewGraph import ViewGraph
 from View.ViewConsole import ViewConsole
 from View.ViewCurvefit import ViewCurvefit
 from View.ViewTitle import ViewTitle
+from View.ViewModifyData import ViewModifyData
 from Model.Graphic import Graphic
 from Model.Curvefit import Curvefit
 from Model.DataExtractor import DataExtractor
@@ -26,7 +27,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def setupWindowTabs(self): #01
         self.tabWidget = QTabWidget()
         self.setCentralWidget(self.tabWidget)
-        self.tabWidget.addTab(self.dataView, "Data")
+        self.tabWidget.addTab(self.dataView, "Extract Data")
+        self.tabWidget.addTab(self.modifyDataView, "Modify Data")
         self.tabWidget.addTab(self.graphView, "Graph")
         self.tabWidget.addTab(self.curvefitView, "Curvefit")
         self.tabWidget.addTab(self.titleView, "Title")
@@ -37,6 +39,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.graphView = ViewGraph(self.modelGraphic, self.modelData)
         self.consoleView = ViewConsole()
         self.dataView = ViewData(self.modelData)
+        self.modifyDataView = ViewModifyData(self.modelData)
         self.curvefitView = ViewCurvefit(self.modelGraphic, self.modelData, self.modelCurvefit)
         self.titleView = ViewTitle(self.modelGraphic, self.modelData)
         # Pointers
@@ -51,3 +54,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dataView.consoleView = self.consoleView
         self.dataView.graphView = self.graphView
         self.dataView.curvefitView = self.curvefitView
+        self.dataView.modifyDataView = self.modifyDataView
+
+        self.modifyDataView.consoleView = self.consoleView
+        self.modifyDataView.graphView = self.graphView
+        self.modifyDataView.curvefitView = self.curvefitView
+        self.modifyDataView.dataView = self.dataView

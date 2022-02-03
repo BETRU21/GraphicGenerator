@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>833</width>
-    <height>545</height>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -206,18 +206,6 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="cmb_data">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-       </widget>
-      </item>
       <item row="3" column="0">
        <widget class="QCheckBox" name="ind_color">
         <property name="styleSheet">
@@ -297,33 +285,15 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="1">
-       <widget class="QPushButton" name="pb_addPlot">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_8">
         <property name="font">
          <font>
           <pointsize>16</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>AddPlot</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="1">
-       <widget class="QPushButton" name="pb_clear">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Clear Plot</string>
+         <string>ErrorBar</string>
         </property>
        </widget>
       </item>
@@ -415,21 +385,117 @@
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="QCheckBox" name="cb_errorBar">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Enable ErrorBar</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
+      <item row="7" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Thickness</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="sb_errorThickness">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="value">
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_11">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Length</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="sb_errorBarSize">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="value">
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="8" column="0">
+       <widget class="QCheckBox" name="ind_colorError">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox::indicator{background-color: rgb(0, 0, 0);}</string>
         </property>
         <property name="text">
-         <string>ErrorBar</string>
+         <string/>
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
+      <item row="8" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QPushButton" name="pb_selectColorError">
@@ -448,13 +514,45 @@
         </item>
        </layout>
       </item>
-      <item row="7" column="0">
-       <widget class="QCheckBox" name="ind_colorError">
-        <property name="styleSheet">
-         <string notr="true">QCheckBox::indicator{background-color: rgb(0, 0, 0);}</string>
+      <item row="9" column="1">
+       <widget class="QPushButton" name="pb_addPlot">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
         </property>
         <property name="text">
-         <string/>
+         <string>AddPlot</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QPushButton" name="pb_clear">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear Plot</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="cmb_data">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
         </property>
        </widget>
       </item>

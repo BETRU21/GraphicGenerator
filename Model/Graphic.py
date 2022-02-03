@@ -3,6 +3,7 @@ import numpy as np
 
 class Graphic:
 	def __init__(self):
+		plt.style.use("https://raw.githubusercontent.com/dccote/Enseignement/master/SRC/dccote-errorbars.mplstyle")
 		plt.ion()
 		self.positions = []
 		self.subplotsDict = {}
@@ -182,6 +183,7 @@ class Graphic:
 			raise TypeError("lineStyle argument is not a string.")
 		if type(Marker) is not str:
 			raise TypeError("Marker argument is not a string.")
+
 		posX = position[0]
 		posY = position[1]
 		position = (posY-1) * self.x + posX
@@ -189,7 +191,7 @@ class Graphic:
 		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label)
 
 
-	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label="", errorBarX=None, errorBarY=None, Ecolor="#000000"):
+	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label="", errorBarX=None, errorBarY=None, Ecolor="#000000", errorSize=None, errorThickness=None):
 		"""
 		Args:
 			position(tuple): The position in the figure.
@@ -223,7 +225,7 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.errorbar(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label, xerr=errorBarX, yerr=errorBarY, barsabove=True, ecolor=Ecolor)
+		subplot.errorbar(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label, xerr=errorBarX, yerr=errorBarY, barsabove=True, ecolor=Ecolor, capsize=errorSize, capthick=errorThickness)
 
 
 	# Non-Public Functions
