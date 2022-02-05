@@ -97,13 +97,13 @@ class Curvefit:
 		self.functions["reflexionCoefficient"] = self.reflexionCoefficient
 
 	def buildFunctionsForm(self):
-		self.functionsForm["sinus"] = "a*np.sin((X*b)+c)+d | where popt=[a,b,c,d]"
-		self.functionsForm["cosinus"] = "a*np.cos((X*b)+c)+d | where popt=[a,b,c,d]"
-		self.functionsForm["gaussian"] = "a*np.exp((-(b*X+c)**2))+d | where popt=[a,b,c,d]"
-		self.functionsForm["exponential"] = "a*np.exp(b*X-c)+d | where popt=[a,b,c,d]"
-		self.functionsForm["straightLine"] = "a*X + b | where popt=[a,b]"
-		self.functionsForm["polynomial2Degree"] = "a*X**2 + b*x + c | where popt=[a,b,c]"
-		self.functionsForm["polynomial3Degree"] = "a*X**3 + b*X**2 + c*X + d | where popt=[a,b,c,d]"
+		self.functionsForm["sinus"] = "a*np.sin((X*b)+c)+d"
+		self.functionsForm["cosinus"] = "a*np.cos((X*b)+c)+d"
+		self.functionsForm["gaussian"] = "a*np.exp((-(b*X+c)**2))+d"
+		self.functionsForm["exponential"] = "a*np.exp(b*X-c)+d"
+		self.functionsForm["straightLine"] = "a*X + b"
+		self.functionsForm["polynomial2Degree"] = "a*X**2 + b*x + c"
+		self.functionsForm["polynomial3Degree"] = "a*X**3 + b*X**2 + c*X + d"
 		self.functionsForm["polynomial9Degree"] = "a*X**9 + b*X**8 + c*X**7 + d*X**6 + e*X**5 + f*X**4 + g*X**3 + h*X**2 + i*X + j"
 		self.functionsForm["reflexionCoefficient"] = "((1-((1/N2)*np.sin(θ))**2)**(1/2)-N2*np.cos(θ))/((1-((1/N2)*np.sin(θ))**2)**(1/2)+N2*np.cos(θ))"
 

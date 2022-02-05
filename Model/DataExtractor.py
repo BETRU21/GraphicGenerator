@@ -1,3 +1,4 @@
+import numpy as np
 
 class DataExtractor:
     def __init__(self):
@@ -13,7 +14,7 @@ class DataExtractor:
     def deleteData(self, dataName):
         self.dataDict.pop(dataName)
 
-    def addData(self, path, dataName, splitSymbol, deleteFirstRow=0, xValuesPos=0, yValuesPos=1):
+    def addData(self, path, dataName, splitSymbol, deleteFirstRow=0, xValuesPos=0, yValuesPos=1, normaliseX=False, normaliseY=False):
         """Add data in the dictionnary.
         Args:
             path(str): The path of the file.
@@ -49,6 +50,14 @@ class DataExtractor:
             elem = elem_str.split(splitSymbol)
             x.append(float(elem[xValuesPos]))
             y.append(float(elem[yValuesPos]))
+        if normaliseX == True:
+            x = np.array(x)
+            x = x - min(x)
+            x = x/max(x)
+        if normaliseY == True:
+            y = np.array(y)
+            y = y - min(y)
+            y = y/max(y)
         self.dataDict[dataName] = {"xValues": x, "yValues": y}
 
     def listData(self):

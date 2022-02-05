@@ -77,8 +77,8 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             self.color = color.name()
             color = self.color[1:]
             newColor = tuple(int(color[i:i+2], 16) for i in (0, 2, 4))
-            styleSheetParameter = "QCheckBox::indicator{background-color: rgb" + f"{newColor}"+";}"
-            self.ind_color.setStyleSheet(styleSheetParameter)
+            styleSheetParameter = "background-color: rgb" + f"{newColor}"+"; border: 0px;"
+            self.pb_selectColor.setStyleSheet(styleSheetParameter)
 
 
     def clearData(self): #08

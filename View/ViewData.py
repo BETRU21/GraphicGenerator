@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt5.Qt import QPixmap
+from PyQt5.QtCore import Qt
 from PyQt5 import uic
 import os
 
@@ -14,7 +16,7 @@ class ViewData(QWidget, Ui_MainWindow):
         self.connectWidgets()
 
     def setupWidgets(self): #01
-        self.cmb_split.addItems([",", ";", ":", ".", "  "])
+        self.cmb_split.addItems([",", ";", ":", "  ",".",])
 
     def connectWidgets(self): #02
         self.pb_filePath.clicked.connect(self.setFilePath)
@@ -30,16 +32,16 @@ class ViewData(QWidget, Ui_MainWindow):
         self.sb_yValues.setMaximum(maximum)
 
     def changeDataNameColorIndicator(self): #04
-        self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(0,255,0);}")
+        self.ind_dataName.setStyleSheet("background-color: rgb(0, 255, 0);")
         self.pb_extract.setEnabled(True)
 
     def changeFilePathColorIndicator(self, color): #05
         if color == "green":
-            indColor = "QCheckBox::indicator{background-color: rgb(0,255,0);}"
+            indColor = "background-color: rgb(0, 255, 0);"
         elif color == "orange":
-            indColor = "QCheckBox::indicator{background-color: rgb(255,136,0);}"
+            indColor = "background-color: rgb(255, 136, 0);"
         elif color == "red":
-            indColor = "QCheckBox::indicator{background-color: rgb(255,0,0);}" 
+            indColor = "background-color: rgb(255, 0, 0);" 
         else:
             raise ValueError("This color is not valid.")
         self.ind_filePath.setStyleSheet(indColor)
@@ -51,12 +53,20 @@ class ViewData(QWidget, Ui_MainWindow):
         deleteFirstRow = self.sb_row.value()
         xValuesColumn = self.sb_xValues.value() - 1
         yValuesColumn = self.sb_yValues.value() - 1
+        if self.cb_normaliseX.checkState() == 2:
+            normaliseX = True
+        else:
+            normaliseX = False
+        if self.cb_normaliseY.checkState() == 2:
+            normaliseY = True
+        else:
+            normaliseY = False
         try:
-            self.modelData.addData(path, dataName, splitSymbol, deleteFirstRow, xValuesColumn, yValuesColumn)
+            self.modelData.addData(path, dataName, splitSymbol, deleteFirstRow, xValuesColumn, yValuesColumn, normaliseX, normaliseY)
             self.updateDataLoaded()
             self.pb_extract.setEnabled(False)
             self.changeFilePathColorIndicator("orange")
-            self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(255,0,0);}")
+            self.ind_dataName.setStyleSheet("background-color: rgb(255, 0, 0);")
             self.pb_reset.setEnabled(True)
             self.consoleView.showOnConsole("Successfully extracted data!", "green")
         except Exception as e:
@@ -91,9 +101,11 @@ class ViewData(QWidget, Ui_MainWindow):
     def resetData(self): #09
         self.cmb_data.clear()
         self.graphView.cmb_data.clear()
+        self.modifyDataView.cmb_data.clear()
+        self.curvefitView.cmb_data.clear()
         self.modelData.resetDataDict()
-        self.ind_dataName.setStyleSheet("QCheckBox::indicator{background-color: rgb(0,255,0);}")
-        self.ind_filePath.setStyleSheet("QCheckBox::indicator{background-color: rgb(0,255,0);}")
+        self.ind_dataName.setStyleSheet("background-color: rgb(0, 255, 0);")
+        self.ind_filePath.setStyleSheet("background-color: rgb(0, 255, 0);")
         self.pb_extract.setEnabled(True)
 
     def preview(self): #10

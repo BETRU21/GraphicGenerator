@@ -16,6 +16,7 @@ class Graphic:
 		if type(y) is not int:
 			raise TypeError("y argument is not int.")
 		self.figure = plt.figure(figsize=(y, x), dpi=80)
+		self.figure.set_size_inches(6.4, 4.8)
 		self.x = x
 		self.y = y
 		self.generatePositions()
