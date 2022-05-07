@@ -25,6 +25,7 @@ class ViewData(QWidget, Ui_MainWindow):
         self.pb_reset.clicked.connect(self.resetData)
         self.cmb_data.currentIndexChanged.connect(self.preview)
         self.sb_nbColumns.valueChanged.connect(self.setMaxColumn)
+        self.pb_delete.clicked.connect(self.deleteSpecificData)
 
     def setMaxColumn(self): #03
         maximum = self.sb_nbColumns.value()
@@ -82,9 +83,6 @@ class ViewData(QWidget, Ui_MainWindow):
         lastIndice = self.cmb_data.count() - 1
         self.cmb_data.setCurrentIndex(lastIndice)
 
-        self.modifyDataView.cmb_data.clear()
-        self.modifyDataView.cmb_data.addItems(keysList)
-
     def setFilePath(self): #08
         try:
             filePath = QFileDialog.getOpenFileName(self, "Select File")[0]
@@ -101,12 +99,23 @@ class ViewData(QWidget, Ui_MainWindow):
     def resetData(self): #09
         self.cmb_data.clear()
         self.graphView.cmb_data.clear()
-        self.modifyDataView.cmb_data.clear()
         self.curvefitView.cmb_data.clear()
         self.modelData.resetDataDict()
         self.ind_dataName.setStyleSheet("background-color: rgb(0, 255, 0);")
         self.ind_filePath.setStyleSheet("background-color: rgb(0, 255, 0);")
         self.pb_extract.setEnabled(True)
+
+    def deleteSpecificData(self):
+        try:
+            dataName = self.cmb_data.currentText()
+            index = self.cmb_data.currentIndex()
+            self.modelData.deleteData(dataName)
+            self.cmb_data.removeItem(index)
+            self.graphView.cmb_data.removeItem(index)
+            self.curvefitView.cmb_data.removeItem(index)
+        except Exception as e:
+            e = str(e)
+            print(e)
 
     def preview(self): #10
         try:

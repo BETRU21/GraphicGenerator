@@ -86,6 +86,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.pb_clear.setEnabled(True)
         self.pb_selectColorError.setEnabled(True)
         self.cb_errorBar.setEnabled(True)
+        self.sb_lineThickness.setEnabled(True)
 
     def getSelectedData(self): #07
         key = self.cmb_data.currentText()
@@ -100,12 +101,14 @@ class ViewGraph(QWidget, Ui_MainWindow):
             self.sb_Yerror.setEnabled(False)
             self.sb_errorThickness.setEnabled(False)
             self.sb_errorBarSize.setEnabled(False)
+            self.cmb_errorType.setEnabled(False)
             # Finir ensuite
         else:
             self.sb_Xerror.setEnabled(True)
             self.sb_Yerror.setEnabled(True)
             self.sb_errorThickness.setEnabled(True)
             self.sb_errorBarSize.setEnabled(True)
+            self.cmb_errorType.setEnabled(True)
 
     def plot(self): #08
         try:
@@ -122,6 +125,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
                 yError = float(self.sb_Yerror.value())
                 errorBarSize = self.sb_errorBarSize.value()
                 errorBarThickness = self.sb_errorThickness.value()
+                linewidth = self.sb_lineThickness.value()
 
                 # faire ici
             except Exception as e:
@@ -129,9 +133,12 @@ class ViewGraph(QWidget, Ui_MainWindow):
                 raise ValueError("To stop the process after catching the error.")
             try:
                 if self.cb_errorBar.checkState() == 2:
-                    self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, xError, yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness)
+                    if self.cmb_errorType.currentIndex() == 0:
+                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, xError, yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, lineWidth=linewidth)
+                    else:
+                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, xError, yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, percentage=True, lineWidth=linewidth)
                 else:
-                    self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label)
+                    self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, lineWidth=linewidth)
             except Exception as e:
                 e = str(e) + " |ERROR:VG#08|"
                 self.consoleView.showOnConsole(e, "red")

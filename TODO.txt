@@ -1,0 +1,5 @@
+Gérer la grosseur du trait FAIT
+supprimer une seule donnée FAIT
+load dernier état (avant fermeture)
+incertitude en pourcentage FAIT
+générer un code reproduisant le même graphique

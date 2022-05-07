@@ -1,9 +1,16 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+
+filePath = os.path.abspath("")
+localStylePath = filePath + "/Model/dccote-errorbars.mplstyle"
 
 class Graphic:
 	def __init__(self):
-		plt.style.use("https://raw.githubusercontent.com/dccote/Enseignement/master/SRC/dccote-errorbars.mplstyle")
+		try:
+			plt.style.use("https://raw.githubusercontent.com/dccote/Enseignement/master/SRC/dccote-errorbars.mplstyle")
+		except:
+			plt.style.use(localStylePath)
 		plt.ion()
 		self.positions = []
 		self.subplotsDict = {}
@@ -154,7 +161,7 @@ class Graphic:
 		subplot.get_legend().remove()
 
 
-	def addPlotWithErrorBar(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label=""):
+	def addPlotWithErrorBar(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label="", percentage=False):
 		"""
 		Args:
 			position(tuple): The position in the figure.
@@ -192,7 +199,7 @@ class Graphic:
 		subplot.plot(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label)
 
 
-	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle= "solid", Marker="", Label="", errorBarX=None, errorBarY=None, Ecolor="#000000", errorSize=None, errorThickness=None):
+	def addPlot(self, position, dataX, dataY, Color="blue", lineStyle="solid", Marker="", Label="", errorBarX=None, errorBarY=None, Ecolor="#000000", errorSize=None, errorThickness=None, percentage=False, lineWidth=2):
 		"""
 		Args:
 			position(tuple): The position in the figure.
@@ -226,7 +233,12 @@ class Graphic:
 		posY = position[1]
 		position = (posY-1) * self.x + posX
 		subplot = self.subplotsDict.get(position)
-		subplot.errorbar(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label, xerr=errorBarX, yerr=errorBarY, barsabove=True, ecolor=Ecolor, capsize=errorSize, capthick=errorThickness)
+		if percentage:
+			errorX = np.array(dataX)*(errorBarX/100)
+			errorY = np.array(dataY)*(errorBarY/100)
+			subplot.errorbar(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label, xerr=errorX, yerr=errorY, barsabove=True, ecolor=Ecolor, capsize=errorSize, capthick=errorThickness, linewidth=lineWidth)
+		else:
+			subplot.errorbar(dataX, dataY, color=Color, linestyle=lineStyle, marker=Marker, label=Label, xerr=errorBarX, yerr=errorBarY, barsabove=True, ecolor=Ecolor, capsize=errorSize, capthick=errorThickness, linewidth=lineWidth)
 
 
 	# Non-Public Functions

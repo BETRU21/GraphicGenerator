@@ -16,7 +16,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         self.markerSymbols = ["", ".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s", "p", "P", "*", "h", "H", "+", "x", "X", "D", "d", "|", "_"]
         self.markerTexts = ["None", "point", "pixel", "circle", "triangle down", "triangle up", "triangle left", "triangle right", "tri down", "tri up", "tri left", "tri right", "octagon", "square", "pentagon", "plus (filled)", "star", "hexagon 1", "hexagon 2", "plus", "x", "x (filled)", "diamond", "thin diamond", "vline", "hline"]
         self.lineStyles = ['solid', 'dashed', 'dashdot', 'dotted']
-        self.color = "#48b0b0"
+        self.color = "#FF0202"
         self.connectWidgets()
         self.setupWidgets()
 
