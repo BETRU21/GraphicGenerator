@@ -3,6 +3,7 @@ from View.ViewGraph import ViewGraph
 from View.ViewConsole import ViewConsole
 from View.ViewCurvefit import ViewCurvefit
 from View.ViewTitle import ViewTitle
+from View.ViewGenerate import ViewGenerate
 from Model.Graphic import Graphic
 from Model.Curvefit import Curvefit
 from Model.DataExtractor import DataExtractor
@@ -31,6 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tabWidget.addTab(self.curvefitView, "Curvefit")
         self.tabWidget.addTab(self.titleView, "Title")
         self.tabWidget.addTab(self.consoleView, "Console")
+        self.tabWidget.addTab(self.generateView, "Generate Code")
 
     def createsComponentsAndPointers(self): #02
         # Components
@@ -39,15 +41,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dataView = ViewData(self.modelData)
         self.curvefitView = ViewCurvefit(self.modelGraphic, self.modelData, self.modelCurvefit)
         self.titleView = ViewTitle(self.modelGraphic, self.modelData)
+        self.generateView = ViewGenerate()
         # Pointers
         self.curvefitView.consoleView = self.consoleView
+        self.curvefitView.generateView = self.generateView
 
         self.titleView.consoleView = self.consoleView
 
         self.graphView.consoleView = self.consoleView
         self.graphView.curvefitView = self.curvefitView
         self.graphView.titleView = self.titleView
+        self.graphView.generateView = self.generateView
 
         self.dataView.consoleView = self.consoleView
         self.dataView.graphView = self.graphView
         self.dataView.curvefitView = self.curvefitView
+        self.dataView.generateView = self.generateView
+
+        self.generateView.curvefitView = self.curvefitView

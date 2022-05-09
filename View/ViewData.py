@@ -70,6 +70,7 @@ class ViewData(QWidget, Ui_MainWindow):
             self.ind_dataName.setStyleSheet("background-color: rgb(255, 0, 0);")
             self.pb_reset.setEnabled(True)
             self.consoleView.showOnConsole("Successfully extracted data!", "green")
+            self.generateView.addDataInfos(path, dataName, splitSymbol, deleteFirstRow, xValuesColumn, yValuesColumn, normaliseX, normaliseY)
         except Exception as e:
             e = str(e) + " |ERROR:VD#06|"
             self.consoleView.showOnConsole(e, "red")
@@ -104,6 +105,7 @@ class ViewData(QWidget, Ui_MainWindow):
         self.ind_dataName.setStyleSheet("background-color: rgb(0, 255, 0);")
         self.ind_filePath.setStyleSheet("background-color: rgb(0, 255, 0);")
         self.pb_extract.setEnabled(True)
+        self.generateView.resetDataInfos()
 
     def deleteSpecificData(self):
         try:
@@ -113,6 +115,7 @@ class ViewData(QWidget, Ui_MainWindow):
             self.cmb_data.removeItem(index)
             self.graphView.cmb_data.removeItem(index)
             self.curvefitView.cmb_data.removeItem(index)
+            self.generateView.deleteDataInfos(dataName)
         except Exception as e:
             e = str(e)
             print(e)

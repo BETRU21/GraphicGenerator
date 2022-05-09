@@ -85,6 +85,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
         position = (int(positionStr[0]), int(positionStr[1]))
         self.modelGraphic.deleteSpecificPlot(position)
+        self.generateView.deletePlotInfos()
 
     def getSelectedData(self): #09
         key = self.cmb_data.currentText()
@@ -98,9 +99,9 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         self.cmb_data.clear()
         self.cmb_data.addItems(keysList)
 
-
     def plot(self): #11
         try:
+            dataName = self.cmb_data.currentText()
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             color = self.color
@@ -122,6 +123,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             try:
                 if self.cb_p0.checkState() == 0:
                     curvefit, newDataX = self.modelCurvefit.curvefit(dataX, dataY, function)
+                    p0 = "None"
                 else:
                     p0STR = self.le_p0.text()
                     intermediateList = p0STR.split(",")
@@ -140,6 +142,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
                 self.le_var.clear()
                 self.le_var.setText(deltaValues)
                 self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
+                self.generateView.addCurvefitInfos(position, dataName, key, p0, color, lineStyle, marker, label)
             except Exception as e:
                 e = str(e) + " |ERROR:VC#11|"
                 self.consoleView.showOnConsole(e, "red")

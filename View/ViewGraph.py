@@ -43,6 +43,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
         position = (int(positionStr[0]), int(positionStr[1]))
         self.modelGraphic.deleteSpecificPlot(position)
+        self.generateView.deletePlotInfos(position)
 
     def selectColorError(self): #04
         color = QColorDialog.getColor()
@@ -75,6 +76,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.enableWidgets()
         self.curvefitView.enableWidgets()
         self.titleView.enableWidgets()
+        self.generateView.updateDimensionInfos(x, y)
 
     def enableWidgets(self): #06
         self.cmb_pos.setEnabled(True)
@@ -115,6 +117,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             try:
+                dataName = self.cmb_data.currentText()
                 dataX, dataY = self.getSelectedData()
                 color = self.color
                 errorBarColor = self.colorError
@@ -134,11 +137,14 @@ class ViewGraph(QWidget, Ui_MainWindow):
             try:
                 if self.cb_errorBar.checkState() == 2:
                     if self.cmb_errorType.currentIndex() == 0:
-                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, xError, yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, lineWidth=linewidth)
+                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, errorBarX=xError, errorBarY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, lineWidth=linewidth)
+                        self.generateView.addPlotInfos(position, dataName, color, lineStyle, marker, label, errorBarX=xError, errorBarY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, lineWidth=linewidth)
                     else:
-                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, xError, yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, percentage=True, lineWidth=linewidth)
+                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, errorBarX=xError, errorBaY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, percentage=True, lineWidth=linewidth)
+                        self.generateView.addPlotInfos(position, dataName, color, lineStyle, marker, label, errorBarX=xError, errorBarY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, percentage=True, lineWidth=linewidth)
                 else:
                     self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, lineWidth=linewidth)
+                    self.generateView.addPlotInfos(position, dataName, color, lineStyle, marker, label, lineWidth=linewidth)
             except Exception as e:
                 e = str(e) + " |ERROR:VG#08|"
                 self.consoleView.showOnConsole(e, "red")
