@@ -42,6 +42,7 @@ class ViewTitle(QWidget, Ui_MainWindow):
             position = (int(positionStr[0]), int(positionStr[1]))
             font = self.sb_legend.value()
             self.modelGraphic.addLegend(position, fontSize=font)
+            self.generateView.addLegend(position, font)
         except Exception as e:
             e = str(e) + " |ERROR:VT#03|"
             self.consoleView.showOnConsole(e, "red")
@@ -51,6 +52,7 @@ class ViewTitle(QWidget, Ui_MainWindow):
             positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
             position = (int(positionStr[0]), int(positionStr[1]))
             self.modelGraphic.deleteLegend(position)
+            self.generateView.deleteLegend(position)
         except Exception as e:
             e = str(e) + " |ERROR:VT#04|"
             self.consoleView.showOnConsole(e, "red")
@@ -59,6 +61,7 @@ class ViewTitle(QWidget, Ui_MainWindow):
         try:
             font = self.sb_legend.value()
             self.modelGraphic.addLegends(fontSize=font)
+            self.generateView.addLegends(font)
         except Exception as e:
             e = str(e) + " |ERROR:VT#05|"
             self.consoleView.showOnConsole(e, "red")
@@ -66,6 +69,7 @@ class ViewTitle(QWidget, Ui_MainWindow):
     def deleteLegends(self): #06
         try:
             self.modelGraphic.deleteLegends()
+            self.generateView.deleteLegends()
         except Exception as e:
             e = str(e) + " |ERROR:VT#06|"
             self.consoleView.showOnConsole(e, "red")
@@ -80,6 +84,7 @@ class ViewTitle(QWidget, Ui_MainWindow):
             title = self.le_title.text()
             font = self.sb_title.value()
             self.modelGraphic.addMainTitle(title, fontSize=font)
+            self.generateView.addTitle(title, font)
         except:
             pass
 
@@ -90,8 +95,10 @@ class ViewTitle(QWidget, Ui_MainWindow):
             subtitle = self.le_subtitle.text()
             font = self.sb_subtitle.value()
             self.modelGraphic.addSubtitle(position, subtitle, fontSize=font)
-        except:
-            pass
+            self.generateView.addSubtitle(position, subtitle, font)
+        except Exception as e:
+            e = str(e)
+            print(e)
 
     def plotXSubtitle(self): #10
         try:
@@ -100,8 +107,10 @@ class ViewTitle(QWidget, Ui_MainWindow):
             subtitleX = self.le_xAxis.text()
             font = self.sb_xAxisTitle.value()
             self.modelGraphic.addXSubtitle(position, subtitleX, fontSize=font)
-        except:
-            pass
+            self.generateView.addXSubtitle(position, subtitleX, fontSize=font)
+        except Exception as e:
+            e = str(e)
+            print(e)
 
     def plotYSubtitle(self): #11
         try:
@@ -110,8 +119,10 @@ class ViewTitle(QWidget, Ui_MainWindow):
             subtitleY = self.le_yAxis.text()
             font = self.sb_yAxisTitle.value()
             self.modelGraphic.addYSubtitle(position, subtitleY, fontSize=font)
-        except:
-            pass
+            self.generateView.addYSubtitle(position, subtitleY, fontSize=font)
+        except Exception as e:
+            e = str(e)
+            print(e)
 
     def enableWidgets(self): #12
         self.le_title.setEnabled(True)

@@ -85,7 +85,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
         positionStr = self.cmb_pos.currentText()[1:-1].split(", ")
         position = (int(positionStr[0]), int(positionStr[1]))
         self.modelGraphic.deleteSpecificPlot(position)
-        self.generateView.deletePlotInfos()
+        self.generateView.deletePlotInfos(position)
 
     def getSelectedData(self): #09
         key = self.cmb_data.currentText()
@@ -108,6 +108,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
             marker = self.markerSymbols[self.cmb_marker.currentIndex()]
             lineStyle = self.cmb_lineType.currentText()
             label = self.le_label.text()
+            linewidth = self.sb_lineThickness.value()
 
             try:
                 dataX, dataY = self.getSelectedData()
@@ -134,7 +135,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
                 raise ValueError("To stop the process after catching the error.")
 
             try:
-                self.modelGraphic.addPlot(position, newDataX, curvefit, color, lineStyle, marker, label)
+                self.modelGraphic.addPlot(position, newDataX, curvefit, color, lineStyle, marker, label, lineWidth=linewidth)
                 popt = str(self.modelCurvefit.currentPopt())
                 deltaValues = str(self.modelCurvefit.currentDeltaValues())
                 self.le_popt.clear()
@@ -142,7 +143,7 @@ class ViewCurvefit(QWidget, Ui_MainWindow):
                 self.le_var.clear()
                 self.le_var.setText(deltaValues)
                 self.consoleView.showOnConsole(f"{self.cmb_function.currentText()} function plot successfully at {self.cmb_pos.currentText()}", "green")
-                self.generateView.addCurvefitInfos(position, dataName, key, p0, color, lineStyle, marker, label)
+                self.generateView.addCurvefitInfos(position, dataName, key, p0, color, lineStyle, marker, label, linewidth)
             except Exception as e:
                 e = str(e) + " |ERROR:VC#11|"
                 self.consoleView.showOnConsole(e, "red")

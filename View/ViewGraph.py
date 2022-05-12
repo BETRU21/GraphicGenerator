@@ -77,6 +77,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
         self.curvefitView.enableWidgets()
         self.titleView.enableWidgets()
         self.generateView.updateDimensionInfos(x, y)
+        self.generateView.resetGraphInfos()
 
     def enableWidgets(self): #06
         self.cmb_pos.setEnabled(True)
@@ -140,7 +141,7 @@ class ViewGraph(QWidget, Ui_MainWindow):
                         self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, errorBarX=xError, errorBarY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, lineWidth=linewidth)
                         self.generateView.addPlotInfos(position, dataName, color, lineStyle, marker, label, errorBarX=xError, errorBarY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, lineWidth=linewidth)
                     else:
-                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, errorBarX=xError, errorBaY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, percentage=True, lineWidth=linewidth)
+                        self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, errorBarX=xError, errorBarY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, percentage=True, lineWidth=linewidth)
                         self.generateView.addPlotInfos(position, dataName, color, lineStyle, marker, label, errorBarX=xError, errorBarY=yError, Ecolor=errorBarColor, errorSize=errorBarSize, errorThickness=errorBarThickness, percentage=True, lineWidth=linewidth)
                 else:
                     self.modelGraphic.addPlot(position, dataX, dataY, color, lineStyle, marker, label, lineWidth=linewidth)

@@ -31,8 +31,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tabWidget.addTab(self.graphView, "Graph")
         self.tabWidget.addTab(self.curvefitView, "Curvefit")
         self.tabWidget.addTab(self.titleView, "Title")
-        self.tabWidget.addTab(self.consoleView, "Console")
         self.tabWidget.addTab(self.generateView, "Generate Code")
+        self.tabWidget.addTab(self.consoleView, "Console")
 
     def createsComponentsAndPointers(self): #02
         # Components
@@ -47,6 +47,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.curvefitView.generateView = self.generateView
 
         self.titleView.consoleView = self.consoleView
+        self.titleView.generateView = self.generateView
 
         self.graphView.consoleView = self.consoleView
         self.graphView.curvefitView = self.curvefitView
@@ -59,3 +60,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dataView.generateView = self.generateView
 
         self.generateView.curvefitView = self.curvefitView
+        self.generateView.consoleView = self.consoleView
